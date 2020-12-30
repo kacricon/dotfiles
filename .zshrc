@@ -1,14 +1,17 @@
+#  ================ Basic Configuration  ================
 export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
 export LC_ALL=en_US.UTF-8
 
 autoload -U colors && colors
 
 # aliases
+alias vim="nvim"
 alias gs="git status"
 
 # prompt
 PROMPT="[%~] %% "
 
+#  ================ Theme ================
 # vi mode
 bindkey -v
 
