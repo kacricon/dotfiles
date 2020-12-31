@@ -9,5 +9,5 @@ brew 'git'
 brew 'neovim'
 
 # Apps
-cask 'firefox'
+cask 'google-chrome'
 cask 'spotify'
