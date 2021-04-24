@@ -19,3 +19,7 @@ cp -r $files $backup_dir
 # copy repo contents
 cd -
 cp -r $files $HOME
+
+##### final touches #####
+# start conda
+conda init zsh

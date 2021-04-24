@@ -3,13 +3,21 @@ tap 'homebrew/cask'
 tap 'homebrew/bundle'
 tap 'hmarr/tap'
 
-# General utilities
+# Requirements
+brew 'ctags'
+
+# Terminal Apps
 brew 'zsh'
-brew 'tree'
 brew 'git'
 brew 'neovim'
+brew 'tldr'
+brew 'tree'
 
 # Apps
-cask 'vitals'
+cask 'kitty'
 cask 'google-chrome'
 cask 'spotify'
+
+# General utilities
+cask 'rectangle'
+cask 'vitals'

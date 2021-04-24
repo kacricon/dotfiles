@@ -1,4 +1,6 @@
-#  ================ Basic Configuration  ================
+#  basic configuration
+#  ===================
+
 export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
 export LC_ALL=en_US.UTF-8
 
@@ -9,9 +11,14 @@ alias vim="nvim"
 alias gs="git status"
 
 # prompt
-PROMPT="[%~] %% "
+PROMPT="; "
 
-#  ================ Theme ================
+# link ghcup
+source ~/.ghcup/env
+
+# vim bindings
+# ============
+
 # vi mode
 bindkey -v
 
