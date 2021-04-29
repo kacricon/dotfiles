@@ -23,3 +23,4 @@ cp -r $files $HOME
 ##### final touches #####
 # start conda
 conda init zsh
+conda config --set auto_activate_base false
