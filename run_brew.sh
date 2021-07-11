@@ -15,3 +15,4 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 # initialize conda
 conda init zsh
+conda config --set auto_activate_base false
