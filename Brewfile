@@ -1,23 +1,24 @@
-# Taps
+# taps
 tap 'homebrew/cask'
 tap 'homebrew/bundle'
 tap 'hmarr/tap'
 
-# Requirements
+# requirements
 brew 'ctags'
 
-# Terminal Apps
+# terminal apps
 brew 'zsh'
 brew 'git'
 brew 'neovim'
 brew 'tldr'
 brew 'tree'
 
-# Apps
+# apps
 cask 'kitty'
 cask 'google-chrome'
 cask 'spotify'
+cask 'omnifocus'
 
-# General utilities
+# general utilities
 cask 'rectangle'
 cask 'vitals'
