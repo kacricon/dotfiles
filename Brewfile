@@ -18,6 +18,9 @@ cask 'kitty'
 cask 'google-chrome'
 cask 'spotify'
 cask 'omnifocus'
+cask 'fantastical'
+cask 'remarkable'
+cask 'selfcontrol'
 
 # general utilities
 cask 'rectangle'

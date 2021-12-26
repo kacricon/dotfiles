@@ -13,9 +13,6 @@ alias gs="git status"
 # prompt
 PROMPT="; "
 
-# link ghcup
-source ~/.ghcup/env
-
 # vim bindings
 # ============
 
