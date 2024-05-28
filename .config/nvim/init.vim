@@ -17,8 +17,8 @@ set encoding=utf-8
 
 " indenting
 set smartindent
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 
 " fuzzy find inside projects folder
@@ -47,6 +47,7 @@ call plug#begin()
 
 " haskell scripts
 Plug 'neovimhaskell/haskell-vim'
+Plug 'junegunn/goyo.vim'
 
 " initialize plugin system
 call plug#end()

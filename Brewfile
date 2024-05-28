@@ -1,7 +1,7 @@
 # taps
-tap 'homebrew/cask'
 tap 'homebrew/bundle'
 tap 'hmarr/tap'
+tap 'caarlos0/tap'
 
 # requirements
 brew 'ctags'
@@ -12,15 +12,13 @@ brew 'git'
 brew 'neovim'
 brew 'tldr'
 brew 'tree'
+brew 'caarlos0/tap/timer'
 
 # apps
 cask 'kitty'
-cask 'google-chrome'
 cask 'spotify'
-cask 'omnifocus'
 cask 'fantastical'
-cask 'remarkable'
-cask 'selfcontrol'
+cask 'figma'
 
 # general utilities
 cask 'rectangle'
