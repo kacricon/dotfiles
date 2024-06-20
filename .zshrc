@@ -1,7 +1,6 @@
 #  basic configuration
 #  ===================
 
-export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
 export LC_ALL=en_US.UTF-8
 
 autoload -U colors && colors
@@ -32,10 +31,13 @@ export KEYTIMEOUT=1
 # ====
 
 # Pomodoro session commands
-alias work="timer 25m && terminal-notifier -message 'Pomodoro'\
-        -title 'Work Timer is up! Take a Break 😊'\
+alias work="timer -n 'Pomodoro: sessão de trabalho' 25m &&\
+        terminal-notifier -title 'Pomodoro'\
+        -message 'Sessão de trabalho acabou porraaaa!'\
         -sound Crystal"
         
-alias rest="timer 5m && terminal-notifier -message 'Pomodoro'\
-        -title 'Break is over! Get back to work 😬'\
+alias rest="timer -n 'Pomodoro: sessão de descanço' 5m &&\
+        terminal-notifier -title 'Pomodoro'\
+        -message 'Dale dale dale puta que pariu!'\
         -sound Crystal"
+
