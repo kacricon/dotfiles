@@ -8,11 +8,12 @@ brew 'ctags'
 
 # terminal tools
 brew 'zsh'
-brew 'exercism'
-brew 'git'
 brew 'neovim'
-brew 'tldr'
+brew 'git'
 brew 'tree'
+brew 'ripgrep'
+brew 'tldr'
+brew 'exercism'
 brew 'caarlos0/tap/timer'
 brew 'terminal-notifier' 
 
