@@ -8,6 +8,7 @@ autoload -U colors && colors
 # aliases
 alias vim="nvim"
 alias gs="git status"
+alias reset_touchbar='sudo pkill TouchBarServer; sudo pkill ControlStrip'
 
 # prompt
 PROMPT="; "
