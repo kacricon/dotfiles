@@ -1,10 +1,10 @@
-.PHONY: all install_packages apply_dotfiles install_brew restore_backup
+.PHONY: all install_packages apply_dotfiles install_brew configure_macos restore_backup
 
 BREW := /opt/homebrew/bin/brew
 BACKUP_DIR := $(HOME)/dotfiles_backup
 FILES := .zshrc .config
 
-all: install_packages apply_dotfiles
+all: install_packages apply_dotfiles configure_macos
 
 install_brew:
 	@if ! which brew > /dev/null; then \
@@ -33,6 +33,11 @@ apply_dotfiles:
 	done
 	@echo "Applying new dotfiles..."
 	@cp -r $(FILES) $(HOME)
+
+configure_macos:
+	@echo "Configuring MacOS..."
+	@defaults write com.apple.dock appswitcher-all-displays -bool true # make app switcher show up on all displays
+	@killall Dock
 
 restore_backup:
 	@echo "Restoring backup..."
