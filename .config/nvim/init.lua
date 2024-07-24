@@ -112,5 +112,7 @@ config.setup({
 })
 
 -- setup catppuccin
-require("catppuccin").setup()
+require("catppuccin").setup({
+    flavour = "frappe",
+})
 vim.cmd.colorscheme "catppuccin"
