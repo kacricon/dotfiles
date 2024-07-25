@@ -66,7 +66,9 @@ local plugins = {
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { "nvim-telescope/telescope.nvim", tag = '0.1.8', dependencies = { 'nvim-lua/plenary.nvim' } },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  { "junegunn/goyo.vim", name = "goyo"},
+  { "junegunn/goyo.vim", name = "goyo" },
+  { "jpalardy/vim-slime", name = "vim-slime" },
+  { "fladson/vim-kitty", name = "vim-kitty" },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -116,3 +118,11 @@ require("catppuccin").setup({
     flavour = "frappe",
 })
 vim.cmd.colorscheme "catppuccin"
+
+-- setup vim-slime
+vim.g.slime_target = "kitty"
+vim.g.slime_paste_file = vim.fn.expand("$HOME/.slime_paste")
+vim.g.slime_python_ipython = 1
+
+vim.api.nvim_set_keymap('x', '<c-c><c-c>', '<Plug>SlimeRegionSend', {noremap = true})
+vim.api.nvim_set_keymap('n', '<c-c><c-c>', '<Plug>SlimeParagraphSend', {noremap = true})
