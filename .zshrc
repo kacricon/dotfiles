@@ -37,7 +37,7 @@ alias work="timer -n 'Pomodoro: sessão de trabalho' 25m &&\
         -message 'Sessão de trabalho acabou porraaaa!'\
         -sound Crystal"
         
-alias rest="timer -n 'Pomodoro: sessão de descanço' 5m &&\
+alias rest="timer -n 'Pomodoro: sessão de descanso' 5m &&\
         terminal-notifier -title 'Pomodoro'\
         -message 'Dale dale dale puta que pariu!'\
         -sound Crystal"
