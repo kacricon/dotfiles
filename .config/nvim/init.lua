@@ -108,7 +108,7 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 -- setup treesitter
 local config = require("nvim-treesitter.configs")
 config.setup({
-  ensure_installed = {"bash", "lua", "c", "python", "markdown"},
+  ensure_installed = {"bash", "lua", "c", "python", "go", "html", "css", "javascript", "typescript", "svelte", "markdown"},
   highlight = { enable = true },
   indent = { enable = true },
 })

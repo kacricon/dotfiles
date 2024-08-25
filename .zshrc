@@ -8,7 +8,11 @@ autoload -U colors && colors
 # aliases
 alias vim="nvim"
 alias gs="git status"
-alias reset_touchbar='sudo pkill TouchBarServer; sudo pkill ControlStrip'
+alias killtouchbar='sudo pkill TouchBarServer; sudo pkill ControlStrip'
+
+alias newvenv="python3 -m venv .venv"
+alias venv="source .venv/bin/activate"
+alias reqs="pip install -r requirements.txt"
 
 # prompt
 PROMPT="; "
