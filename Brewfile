@@ -1,6 +1,4 @@
 # taps
-tap 'homebrew/bundle'
-tap 'hmarr/tap'
 tap 'caarlos0/tap'
 
 # requirements
@@ -12,7 +10,7 @@ brew 'neovim'
 brew 'ripgrep'
 brew 'git'
 brew 'tree'
-brew 'tldr'
+brew 'tlrc'
 brew 'exercism'
 brew 'caarlos0/tap/timer'
 brew 'terminal-notifier' 

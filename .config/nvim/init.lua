@@ -69,6 +69,14 @@ local plugins = {
   { "junegunn/goyo.vim", name = "goyo" },
   { "jpalardy/vim-slime", name = "vim-slime" },
   { "fladson/vim-kitty", name = "vim-kitty" },
+  { "nvim-neo-tree/neo-tree.nvim", name = "neo-tree",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  }
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
