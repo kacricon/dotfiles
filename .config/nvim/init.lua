@@ -96,16 +96,16 @@ telescope.setup{
       '--column',
       '--smart-case',
       '--hidden',
-      '--no-ignore',
-      '--glob', '!.git/'
+      '--glob', '!.git/',
+      '--glob', '!.venv/',
+      '--glob', '!.ruff_cache/',
     },
-    file_ignore_patterns = { ".git/" },
+    file_ignore_patterns = { '%.git/', '%.venv/', '%.ruff-cache/' },
   },
   pickers = {
     find_files = {
       hidden = true,
-      no_ignore = true,
-      file_ignore_patterns = { ".git/" }
+      file_ignore_patterns = { '%.git/', '%.venv/', '%.ruff-cache/' },
     }
   }
 }
