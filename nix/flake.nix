@@ -60,7 +60,7 @@
 
         casks = [
           # GUI applications
-          "claude"
+          "claude-code"
           "zen"
           "discord"
           "fantastical"
