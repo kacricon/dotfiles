@@ -1,25 +1,9 @@
-.PHONY: all install_packages apply_dotfiles install_brew configure_macos restore_backup
+.PHONY: all apply_dotfiles configure_macos restore_backup
 
-BREW := /opt/homebrew/bin/brew
 BACKUP_DIR := $(HOME)/dotfiles_backup
 FILES := .zshrc .config
 
-all: install_packages apply_dotfiles configure_macos
-
-install_brew:
-	@if ! which brew > /dev/null; then \
-		echo "Installing Homebrew..."; \
-		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-		touch "$$HOME/.zprofile"; \
-		echo 'eval "$$($(BREW) shellenv)"' >> "$$HOME/.zprofile"; \
-		eval "$$($(BREW) shellenv)"; \
-	fi
-
-install_packages: install_brew
-	@echo "Installing packages using Homebrew..."
-	@$(BREW) update
-	@$(BREW) tap homebrew/bundle
-	@$(BREW) bundle
+all: apply_dotfiles configure_macos
 
 apply_dotfiles:
 	@echo "Backing up current dotfiles..."

@@ -18,5 +18,5 @@ Each spec describes the **desired end-state** for one concern. Specs are the sou
 | Plan | Spec | Status |
 |------|------|--------|
 | [shell-implementation-plan](shell-implementation-plan.md) | [shell](shell.md) | Done |
-| [packages-implementation-plan](packages-implementation-plan.md) | [packages](packages.md) | Pending |
+| [packages-implementation-plan](packages-implementation-plan.md) | [packages](packages.md) | Done |
 | [macos-implementation-plan](macos-implementation-plan.md) | [macos](macos.md) | Done |

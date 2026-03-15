@@ -6,7 +6,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 
 ## Current State
 
-Two package managers coexist:
+`nix/flake.nix` is the single source of truth for all packages. The legacy `Brewfile` has been deleted.
 
 **Nix-darwin** (`nix/flake.nix`) manages:
 - CLI tools: universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide
@@ -20,16 +20,13 @@ Two package managers coexist:
 - Casks: arc, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
 - Mac App Store: reMarkable
 
-**Legacy Brewfile** still exists with overlapping definitions. Several CLI tools are commented out (managed by Nix now).
+Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
 
-**Files:** `nix/flake.nix`, `Brewfile`
+**Files:** `nix/flake.nix`
 
 ## Desired State
 
-- `nix/flake.nix` is the single source of truth for all packages.
-- The `homebrew` block inside flake.nix handles casks, `mas` apps, and the `timer` tap.
-- `Brewfile` is deleted. All its content is already represented in flake.nix.
-- Adding a package means editing flake.nix and running `darwin-rebuild switch`.
+No remaining delta — current state matches desired state.
 
 ### Package inventory
 
