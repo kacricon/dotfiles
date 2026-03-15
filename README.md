@@ -5,7 +5,7 @@ Personal dotfiles for macOS (Apple Silicon). Manages dev tools, terminal, editor
 ## Bootstrap
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/jrc/dotfiles/master/setup.sh | sh
+curl -fsSL https://raw.githubusercontent.com/kacricon/dotfiles/master/setup.sh | sh
 ```
 
 This is idempotent — re-running it applies the latest configuration without errors. It will:
