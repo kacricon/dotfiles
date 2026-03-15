@@ -71,9 +71,7 @@
           "vitals"
         ];
 
-        masApps = {
-          "reMarkable" = 1276493162;
-        };
+        masApps = {};
       };
 
       # Necessary for using flakes on this system.

@@ -32,7 +32,6 @@ All packages are already in `flake.nix` (verified against both files). No change
   - `yazi`, `ffmpegthumbnailer`, `unar`, `jq`, `poppler`, `fd`, `fzf` → all in `environment.systemPackages`
   - `font-symbols-only-nerd-font` → `fonts.packages` NerdFontsSymbolsOnly
   - All casks (`zen-browser`, `discord`, `fantastical`, `figma`, `kitty`, `notion`, `obsidian`, `rectangle`, `vitals`) → `homebrew.casks`
-  - `mas 'reMarkable'` → `homebrew.masApps`
 - [x] Delete `Brewfile`
 
 ## Phase 2: Update Makefile
@@ -74,7 +73,4 @@ which nvim && which rg && which yazi && which tree && which zoxide
 # Homebrew-managed apps still present (managed by nix-darwin homebrew block)
 brew list --cask | grep -q kitty
 brew list | grep -q timer
-
-# Mac App Store
-mas list | grep -q reMarkable
 ```
