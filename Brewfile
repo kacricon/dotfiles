@@ -5,13 +5,14 @@ tap 'caarlos0/tap'
 brew 'ctags'
 
 # terminal tools
-brew 'zsh'
-brew 'neovim'
-brew 'ripgrep'
-brew 'git'
-brew 'tree'
-brew 'tlrc'
-brew 'exercism'
+#brew 'zsh'
+#brew 'neovim'
+#brew 'ripgrep'
+#brew 'git'
+brew 'git-lfs'
+#brew 'tree'
+#brew 'tlrc'
+#brew 'exercism'
 brew 'caarlos0/tap/timer'
 brew 'terminal-notifier' 
 
@@ -23,7 +24,7 @@ brew 'jq'
 brew 'poppler'
 brew 'fd'
 brew 'fzf'
-brew 'zoxide'
+#brew 'zoxide'
 cask 'font-symbols-only-nerd-font'
 
 # apps
@@ -34,7 +35,6 @@ cask 'figma'
 cask 'kitty'
 cask 'notion'
 cask 'obsidian'
-cask 'spotify'
 
 # general utilities
 cask 'rectangle'
@@ -42,3 +42,4 @@ cask 'vitals'
 
 # App Store
 mas 'reMarkable', id: 1276493162
+

@@ -76,7 +76,14 @@ local plugins = {
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     }
-  }
+  },
+  {
+  "lewis6991/gitsigns.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("gitsigns").setup()
+    end,
+  },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
