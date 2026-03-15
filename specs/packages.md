@@ -17,7 +17,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 **Homebrew** (via nix-darwin `homebrew` block):
 - Taps: `caarlos0/tap`
 - Brews: `caarlos0/tap/timer` (not in nixpkgs)
-- Casks: arc, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
+- Casks: zen-browser, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
 - Mac App Store: reMarkable
 
 Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
@@ -37,7 +37,7 @@ universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-n
 caarlos0/tap/timer
 
 **Homebrew casks** (GUI apps):
-arc, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
+zen-browser, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
 
 **Mac App Store:**
 reMarkable (id: 1276493162)
@@ -59,7 +59,6 @@ NerdFontsSymbolsOnly (via nixpkgs)
 ## Implementation Files
 
 - `nix/flake.nix`
-- `Brewfile` (to be deleted)
 
 ## Verification
 

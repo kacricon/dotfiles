@@ -31,7 +31,7 @@ All packages are already in `flake.nix` (verified against both files). No change
   - `terminal-notifier` → `pkgs.terminal-notifier`
   - `yazi`, `ffmpegthumbnailer`, `unar`, `jq`, `poppler`, `fd`, `fzf` → all in `environment.systemPackages`
   - `font-symbols-only-nerd-font` → `fonts.packages` NerdFontsSymbolsOnly
-  - All casks (`arc`, `discord`, `fantastical`, `figma`, `kitty`, `notion`, `obsidian`, `rectangle`, `vitals`) → `homebrew.casks`
+  - All casks (`zen-browser`, `discord`, `fantastical`, `figma`, `kitty`, `notion`, `obsidian`, `rectangle`, `vitals`) → `homebrew.casks`
   - `mas 'reMarkable'` → `homebrew.masApps`
 - [x] Delete `Brewfile`
 

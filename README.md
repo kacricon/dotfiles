@@ -1,3 +1,3 @@
 # dotfiles
 
-My dotfiles covering Homebrew and packages, and configurations for `kitty` and `nvim`.
+Personal dotfiles for macOS (Apple Silicon). Manages dev tools, terminal, editor, and system preferences via nix-darwin.
