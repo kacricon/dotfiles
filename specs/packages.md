@@ -17,7 +17,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 **Homebrew** (via nix-darwin `homebrew` block):
 - Taps: `caarlos0/tap`
 - Brews: `caarlos0/tap/timer` (not in nixpkgs)
-- Casks: zen-browser, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
+- Casks: claude, zen, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
 Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
 
 **Files:** `nix/flake.nix`
@@ -35,7 +35,7 @@ universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-n
 caarlos0/tap/timer
 
 **Homebrew casks** (GUI apps):
-zen-browser, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
+claude, zen, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
 
 **Fonts:**
 NerdFontsSymbolsOnly (via nixpkgs)

@@ -60,7 +60,8 @@
 
         casks = [
           # GUI applications
-          "zen-browser"
+          "claude"
+          "zen"
           "discord"
           "fantastical"
           "figma"
