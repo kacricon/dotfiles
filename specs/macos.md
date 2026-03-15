@@ -15,9 +15,7 @@ All preferences are managed via `system.defaults` in `nix/flake.nix`:
 - **Trackpad**: tap to click, natural scrolling
 - **Rectangle**: launch on login, alternate shortcuts, 5px gap/snap margins, cycle sizes on repeat
 
-The legacy `Makefile` `configure_macos` target now points to nix-darwin.
-
-**Files:** `nix/flake.nix` (system.defaults block), `Makefile` (stub target)
+**Files:** `nix/flake.nix` (system.defaults block)
 
 ## Desired State
 
@@ -38,7 +36,6 @@ All preferences are implemented. No remaining items.
 ## Implementation Files
 
 - `nix/flake.nix` (system.defaults block, system.primaryUser, activation script)
-- `Makefile` (legacy stub pointing to nix-darwin)
 
 ## Verification
 

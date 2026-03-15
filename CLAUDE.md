@@ -13,13 +13,9 @@ All design intent lives in `specs/`. Start there: [specs/README.md](specs/README
 ## Quick Reference
 
 ```bash
-# Nix-darwin (primary)
-darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
-
-# Legacy Homebrew (being deprecated)
-make all                  # full setup: packages + dotfiles + macos
+make all                  # rebuild nix-darwin + copy dotfiles to $HOME
+make rebuild              # nix-darwin rebuild only
 make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
-make configure_macos      # apply macOS defaults
 ```
 
 ## Architecture
@@ -28,8 +24,7 @@ make configure_macos      # apply macOS defaults
 .
 ├── CLAUDE.md                        # this file
 ├── specs/                           # design specs (intent, not implementation)
-├── Makefile                         # setup orchestration (legacy)
-├── Brewfile                         # Homebrew packages (deprecated, see specs/packages.md)
+├── Makefile                         # setup orchestration
 ├── .zshrc                           # shell config
 ├── .config/
 │   ├── nvim/init.lua                # neovim (lazy.nvim, single file)
@@ -59,6 +54,7 @@ When picking up work from a spec:
 4. **Implement** — make the changes
 5. **Verify** — run the spec's verification commands
 6. **Update the spec** — move items from "Desired State" to "Current State" once implemented
+7. **Update downstream references** — update any files that reference changed functionality: Makefile targets, CLAUDE.md quick reference/architecture, other specs, and specs/README.md
 
 Never implement directly from a spec without reading the actual code first. Specs can be stale.
 

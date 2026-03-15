@@ -1,9 +1,12 @@
-.PHONY: all apply_dotfiles configure_macos restore_backup
+.PHONY: all rebuild apply_dotfiles restore_backup
 
 BACKUP_DIR := $(HOME)/dotfiles_backup
 FILES := .zshrc .config
 
-all: apply_dotfiles configure_macos
+all: rebuild apply_dotfiles
+
+rebuild:
+	sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
 
 apply_dotfiles:
 	@echo "Backing up current dotfiles..."
@@ -17,10 +20,6 @@ apply_dotfiles:
 	done
 	@echo "Applying new dotfiles..."
 	@cp -r $(FILES) $(HOME)
-
-configure_macos:
-	@echo "macOS preferences are now managed by nix-darwin system.defaults in nix/flake.nix"
-	@echo "Run: sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop"
 
 restore_backup:
 	@echo "Restoring backup..."

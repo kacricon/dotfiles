@@ -6,13 +6,13 @@ The bootstrap spec defines how a fresh Mac goes from zero to a fully configured 
 
 ## Current State
 
-Setup is Makefile-orchestrated:
+Setup uses nix-darwin + Makefile:
 
 1. Clone the repo manually to `~/projects/dotfiles`
-2. Run `make all`, which calls: `install_packages` (Homebrew), `apply_dotfiles` (copy to `$HOME`), `configure_macos` (defaults write)
-3. Nix setup is a separate manual process documented in NIX_MIGRATION.md
+2. Run `make all`, which calls: `rebuild` (nix-darwin switch), `apply_dotfiles` (copy to `$HOME`)
+3. Packages and macOS preferences are managed by nix-darwin (`nix/flake.nix`)
 
-**Files:** `Makefile`
+**Files:** `Makefile`, `nix/flake.nix`
 
 ## Desired State
 
