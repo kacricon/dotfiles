@@ -3,13 +3,21 @@
 
 export LC_ALL=en_US.UTF-8
 
+# history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS
+setopt SHARE_HISTORY
+
 autoload -U colors && colors
+
+# completions
+autoload -Uz compinit && compinit
 
 # aliases
 alias vim="nvim"
 alias gs="git status"
-alias killtouchbar='sudo pkill TouchBarServer; sudo pkill ControlStrip'
-
 alias newvenv="python3 -m venv .venv"
 alias venv="source .venv/bin/activate"
 alias reqs="pip install -r requirements.txt"
@@ -46,3 +54,5 @@ alias rest="timer -n 'Pomodoro: sessão de descanso' 5m &&\
         -message 'Dale dale dale puta que pariu!'\
         -sound Crystal"
 
+# zoxide (must come after compinit)
+eval "$(zoxide init zsh)"

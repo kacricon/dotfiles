@@ -9,31 +9,27 @@ Zsh is the login shell, configured for minimalism: vi-mode keybindings, a two-ch
 `.zshrc` contains:
 
 - **Locale**: `LC_ALL=en_US.UTF-8`
+- **History**: `HISTFILE=~/.zsh_history`, `HISTSIZE=10000`, `SAVEHIST=10000`, `HIST_IGNORE_DUPS`, `SHARE_HISTORY`
+- **Completions**: `autoload -Uz compinit && compinit`
 - **Prompt**: `; ` (semicolon + space)
 - **Vi mode**: `bindkey -v` with NORMAL mode indicator in RPROMPT, `KEYTIMEOUT=1`
 - **Aliases**:
   - `vim` → `nvim`
   - `gs` → `git status`
-  - `killtouchbar` → kills Touch Bar processes
   - `newvenv` → `python3 -m venv .venv`
   - `venv` → `source .venv/bin/activate`
   - `reqs` → `pip install -r requirements.txt`
   - `work` → 25-minute Pomodoro timer with notification (Portuguese messages)
   - `rest` → 5-minute break timer with notification
-- **No completions, no history config, no zoxide init**
+- **zoxide**: `eval "$(zoxide init zsh)"` at end of file (after compinit)
 
 **Files:** `.zshrc`
 
 ## Desired State
 
-Keep the current minimalism. Additions to consider:
+All previously planned items are implemented. No pending changes.
 
-- **zoxide**: add `eval "$(zoxide init zsh)"` (zoxide is already installed via Nix)
-- **History config**: `HISTSIZE`, `SAVEHIST`, `HISTFILE`, dedup
-- **Completions**: basic `compinit` for Nix-installed tools
-- **Remove `killtouchbar`**: irrelevant on Apple Silicon Macs (no Touch Bar)
-
-Everything else stays as-is. No oh-my-zsh, no starship, no plugin managers.
+Everything stays as-is. No oh-my-zsh, no starship, no plugin managers.
 
 ## Design Decisions
 

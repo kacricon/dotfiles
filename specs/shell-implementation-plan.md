@@ -1,5 +1,7 @@
 # Shell Implementation Plan
 
+Implementation checklist for specs/shell.md.
+
 > Spec: [shell.md](shell.md)
 > Created: 2026-03-15
 
@@ -21,23 +23,23 @@ All dependencies are met — zoxide, nvim, timer, and terminal-notifier are inst
 > Reference: shell.md §Desired State
 > File: `.zshrc`
 
-- [ ] Remove `killtouchbar` alias (line 11) — irrelevant on Apple Silicon (no Touch Bar)
-- [ ] Add history configuration after the locale block:
+- [x] Remove `killtouchbar` alias (line 11) — irrelevant on Apple Silicon (no Touch Bar)
+- [x] Add history configuration after the locale block:
   - `HISTFILE=~/.zsh_history`
   - `HISTSIZE=10000`
   - `SAVEHIST=10000`
   - `setopt HIST_IGNORE_DUPS`
   - `setopt SHARE_HISTORY`
-- [ ] Add basic completion init: `autoload -Uz compinit && compinit`
-- [ ] Add zoxide initialization at end of file: `eval "$(zoxide init zsh)"`
+- [x] Add basic completion init: `autoload -Uz compinit && compinit`
+- [x] Add zoxide initialization at end of file: `eval "$(zoxide init zsh)"`
   - Must come after compinit per zoxide docs
 
 ## Phase 2: Spec update
 
 > Reference: shell.md §Current State, §Desired State
 
-- [ ] Update `specs/shell.md` "Current State" to reflect the four changes
-- [ ] Update "Desired State" to remove completed items
+- [x] Update `specs/shell.md` "Current State" to reflect the four changes
+- [x] Update "Desired State" to remove completed items
 
 ## Verification
 

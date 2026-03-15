@@ -17,4 +17,4 @@ Each spec describes the **desired end-state** for one concern. Specs are the sou
 
 | Plan | Spec | Status |
 |------|------|--------|
-| [shell-implementation-plan](shell-implementation-plan.md) | [shell](shell.md) | Pending |
+| [shell-implementation-plan](shell-implementation-plan.md) | [shell](shell.md) | Done |
