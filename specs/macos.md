@@ -13,6 +13,7 @@ All preferences are managed via `system.defaults` in `nix/flake.nix`:
 - **Keyboard**: fast key repeat (`KeyRepeat = 2`), short initial repeat delay (`InitialKeyRepeat = 15`)
 - **Screenshots**: save to `~/Screenshots`, disable shadow
 - **Trackpad**: tap to click, natural scrolling
+- **Rectangle**: launch on login, alternate shortcuts, 5px gap/snap margins, cycle sizes on repeat
 
 The legacy `Makefile` `configure_macos` target now points to nix-darwin.
 
@@ -20,9 +21,7 @@ The legacy `Makefile` `configure_macos` target now points to nix-darwin.
 
 ## Desired State
 
-- **Rectangle**: apply preferences programmatically (export current config, store in repo via `CustomUserPreferences`)
-
-All other preferences are implemented.
+All preferences are implemented. No remaining items.
 
 ## Design Decisions
 

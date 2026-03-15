@@ -57,11 +57,9 @@ Add a `system.defaults` block to the `configuration` module in `nix/flake.nix` w
 
 ## Phase 2: Rectangle preferences
 
-- [ ] Export current Rectangle config: `defaults export com.knollsoft.Rectangle -`
-- [ ] Store relevant preferences via `system.defaults.CustomUserPreferences."com.knollsoft.Rectangle"`
-- [ ] Specific keys TBD after export — common ones: `launchOnLogin`, `alternateDefaultShortcuts`, window placement shortcuts
-
-> **Note:** This phase requires exporting current preferences from a machine with Rectangle configured. If Rectangle is not yet configured, skip this phase and revisit later.
+- [x] Export current Rectangle config: `defaults export com.knollsoft.Rectangle -`
+- [x] Store relevant preferences via `system.defaults.CustomUserPreferences."com.knollsoft.Rectangle"`
+- [x] Keys stored: `launchOnLogin`, `alternateDefaultShortcuts`, `gapSize`, `subsequentExecutionMode`, `snapEdgeMargin{Top,Bottom,Left,Right}`
 
 ## Phase 3: Update Makefile
 

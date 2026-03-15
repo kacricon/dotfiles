@@ -115,6 +115,16 @@
           "com.apple.dock" = {
             appswitcher-all-displays = true;
           };
+          "com.knollsoft.Rectangle" = {
+            launchOnLogin = true;
+            alternateDefaultShortcuts = true;
+            gapSize = 5.0;
+            subsequentExecutionMode = 1;  # cycle through sizes
+            snapEdgeMarginTop = 5.0;
+            snapEdgeMarginBottom = 5.0;
+            snapEdgeMarginLeft = 5.0;
+            snapEdgeMarginRight = 5.0;
+          };
         };
       };
 
