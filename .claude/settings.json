@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "scripts/sentinel-watcher.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
