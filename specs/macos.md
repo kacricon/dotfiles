@@ -2,36 +2,34 @@
 
 ## Overview
 
-macOS system preferences are applied programmatically via `defaults write` commands to ensure reproducibility across machines.
+macOS system preferences are applied declaratively via nix-darwin `system.defaults` in `nix/flake.nix`.
 
 ## Current State
 
-The `Makefile` `configure_macos` target runs one command:
-- `defaults write com.apple.dock appswitcher-all-displays -bool true` (app switcher on all displays)
-- `killall Dock` to apply
+All preferences are managed via `system.defaults` in `nix/flake.nix`:
 
-No Rectangle preferences are managed programmatically (no `rectangle-preferences.json` found in repo).
+- **Dock**: app switcher on all displays, auto-hide, minimize to application
+- **Finder**: show extensions, show hidden files, default to list view, show path bar
+- **Keyboard**: fast key repeat (`KeyRepeat = 2`), short initial repeat delay (`InitialKeyRepeat = 15`)
+- **Screenshots**: save to `~/Screenshots`, disable shadow
+- **Trackpad**: tap to click, natural scrolling
 
-**Files:** `Makefile` (configure_macos target)
+The legacy `Makefile` `configure_macos` target now points to nix-darwin.
+
+**Files:** `nix/flake.nix` (system.defaults block), `Makefile` (stub target)
 
 ## Desired State
 
-Expand `defaults write` coverage to include:
+- **Rectangle**: apply preferences programmatically (export current config, store in repo via `CustomUserPreferences`)
 
-- **Dock**: app switcher on all displays (existing), auto-hide, minimize to application
-- **Finder**: show extensions, show hidden files, default to list view, show path bar
-- **Keyboard**: fast key repeat, short initial repeat delay
-- **Screenshots**: save to `~/Screenshots`, disable shadow
-- **Trackpad**: tap to click, natural scrolling
-- **Rectangle**: apply preferences programmatically (export current config, store in repo)
-
-All preferences should be applied idempotently. Eventually move these into nix-darwin `system.defaults` once the full migration is complete.
+All other preferences are implemented.
 
 ## Design Decisions
 
-- **`defaults write` for now**: simple, no dependencies beyond macOS. Migrate to nix-darwin `system.defaults` later.
-- **Idempotent**: every command can be re-run safely.
-- **killall only when needed**: batch all `defaults write` commands, restart affected processes once at the end.
+- **nix-darwin `system.defaults`**: declarative, reproducible, applied on `darwin-rebuild switch`.
+- **`system.primaryUser`**: required by nix-darwin for user-scoped defaults (set to `jrc`).
+- **`CustomUserPreferences`**: used for dock options not exposed as first-class nix-darwin options (e.g., `appswitcher-all-displays`).
+- **Activation script**: creates `~/Screenshots` directory on rebuild.
 
 ## Dependencies
 
@@ -40,15 +38,27 @@ All preferences should be applied idempotently. Eventually move these into nix-d
 
 ## Implementation Files
 
-- `Makefile` (configure_macos target)
-- `nix/flake.nix` (future: `system.defaults` block)
+- `nix/flake.nix` (system.defaults block, system.primaryUser, activation script)
+- `Makefile` (legacy stub pointing to nix-darwin)
 
 ## Verification
 
 ```bash
-make configure_macos
+sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
 
 # Spot-check:
-defaults read com.apple.dock appswitcher-all-displays  # → 1
-defaults read com.apple.finder AppleShowAllExtensions   # → 1 (after implementation)
+defaults read com.apple.dock autohide                         # → 1
+defaults read com.apple.dock appswitcher-all-displays         # → 1
+defaults read com.apple.dock minimize-to-application          # → 1
+defaults read com.apple.finder AppleShowAllExtensions         # → 1
+defaults read com.apple.finder AppleShowAllFiles              # → 1
+defaults read com.apple.finder FXPreferredViewStyle           # → Nlsv
+defaults read com.apple.finder ShowPathbar                    # → 1
+defaults read NSGlobalDomain KeyRepeat                        # → 2
+defaults read NSGlobalDomain InitialKeyRepeat                 # → 15
+defaults read com.apple.screencapture location                # → ~/Screenshots
+defaults read com.apple.screencapture disable-shadow          # → 1
+defaults read com.apple.AppleMultitouchTrackpad Clicking      # → 1
+defaults read NSGlobalDomain com.apple.swipescrolldirection   # → 1
+ls -d ~/Screenshots                                          # → exists
 ```

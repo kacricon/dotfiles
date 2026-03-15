@@ -31,14 +31,14 @@
           pkgs.ffmpegthumbnailer
           pkgs.unar
           pkgs.jq
-          pkgs.poppler_utils
+          pkgs.poppler-utils
           pkgs.fd
           pkgs.fzf
         ];
 
       # Fonts
       fonts.packages = [
-        (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+        pkgs.nerd-fonts.symbols-only
       ];
 
       # Homebrew integration for GUI apps and packages not available in nixpkgs
@@ -81,6 +81,50 @@
 
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
+
+      # macOS system preferences (specs/macos.md)
+      system.defaults = {
+        dock = {
+          autohide = true;
+          minimize-to-application = true;
+        };
+
+        finder = {
+          AppleShowAllExtensions = true;
+          AppleShowAllFiles = true;
+          FXPreferredViewStyle = "Nlsv";
+          ShowPathbar = true;
+        };
+
+        NSGlobalDomain = {
+          KeyRepeat = 2;
+          InitialKeyRepeat = 15;
+          "com.apple.swipescrolldirection" = true;
+        };
+
+        screencapture = {
+          location = "~/Screenshots";
+          disable-shadow = true;
+        };
+
+        trackpad = {
+          Clicking = true;
+        };
+
+        CustomUserPreferences = {
+          "com.apple.dock" = {
+            appswitcher-all-displays = true;
+          };
+        };
+      };
+
+      # Ensure ~/Screenshots directory exists
+      system.activationScripts.extraActivation.text = ''
+        sudo -u jrc mkdir -p /Users/jrc/Screenshots
+      '';
+
+      # Primary user for user-scoped defaults and homebrew
+      system.primaryUser = "jrc";
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;

@@ -35,9 +35,8 @@ apply_dotfiles:
 	@cp -r $(FILES) $(HOME)
 
 configure_macos:
-	@echo "Configuring MacOS..."
-	@defaults write com.apple.dock appswitcher-all-displays -bool true # make app switcher show up on all displays
-	@killall Dock
+	@echo "macOS preferences are now managed by nix-darwin system.defaults in nix/flake.nix"
+	@echo "Run: sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop"
 
 restore_backup:
 	@echo "Restoring backup..."
