@@ -1,9 +1,12 @@
-.PHONY: all rebuild apply_dotfiles restore_backup
+.PHONY: all bootstrap rebuild apply_dotfiles restore_backup agent
 
 BACKUP_DIR := $(HOME)/dotfiles_backup
 FILES := .zshrc .config
 
 all: rebuild apply_dotfiles
+
+bootstrap:
+	bash setup.sh
 
 rebuild:
 	sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
@@ -30,3 +33,6 @@ restore_backup:
 	    echo "Warning: Backup for $$FILE does not exist."; \
 	  fi \
 	done
+
+ralph:
+	bash scripts/ralph-loop.sh

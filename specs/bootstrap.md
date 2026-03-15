@@ -6,31 +6,27 @@ The bootstrap spec defines how a fresh Mac goes from zero to a fully configured 
 
 ## Current State
 
-Setup uses nix-darwin + Makefile:
+`setup.sh` is the single bootstrap entry point. Each step is idempotent:
 
-1. Clone the repo manually to `~/projects/dotfiles`
-2. Run `make all`, which calls: `rebuild` (nix-darwin switch), `apply_dotfiles` (copy to `$HOME`)
-3. Packages and macOS preferences are managed by nix-darwin (`nix/flake.nix`)
+1. Install Xcode Command Line Tools (skips if present)
+2. Install Nix via Determinate Systems installer (skips if present)
+3. Clone repo to `~/projects/dotfiles` (pulls if exists, clones if not)
+4. Run `darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop`
+5. Apply dotfiles via `make apply_dotfiles` (backup + copy)
 
-**Files:** `Makefile`, `nix/flake.nix`
+Also available: `make all` (steps 4+5), `make bootstrap` (runs `setup.sh`).
+
+**Files:** `setup.sh`, `Makefile`, `nix/flake.nix`
 
 ## Desired State
 
-A single command bootstraps everything:
+Everything is implemented. No outstanding changes.
+
+Bootstrap command:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/jrc/dotfiles/master/setup.sh | sh
 ```
-
-`setup.sh` handles these steps (each idempotent):
-
-1. Install Xcode Command Line Tools (skip if present)
-2. Install Nix via Determinate Systems installer (skip if present)
-3. Clone repo to `~/projects/dotfiles` (skip if exists, `git pull` if exists)
-4. Run `darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop`
-5. Apply dotfiles: copy `.zshrc` and `.config/` to `$HOME` (with backup)
-
-Re-running the script at any point should converge to the desired state.
 
 ## Design Decisions
 
@@ -46,7 +42,7 @@ Re-running the script at any point should converge to the desired state.
 
 ## Implementation Files
 
-- `setup.sh` (to be created)
+- `setup.sh`
 - `Makefile`
 - `nix/flake.nix`
 

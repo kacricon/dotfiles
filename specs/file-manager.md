@@ -11,14 +11,18 @@ Yazi is the terminal file manager, configured minimally with hidden files visibl
 - Panel ratio: `[2, 4, 3]`
 - Preview max: 1200x1800
 - Opener: `nvim "$@"`
-- **No theme file** — uses Yazi's default colors
 
-**Files:** `.config/yazi/yazi.toml`
+`.config/yazi/theme.toml`:
+- Catppuccin Frappe theme (lavender accent) from catppuccin/yazi
+
+`.config/yazi/Catppuccin-frappe.tmTheme`:
+- Syntax highlighting theme for file preview pane from catppuccin/bat
+
+**Files:** `.config/yazi/yazi.toml`, `.config/yazi/theme.toml`, `.config/yazi/Catppuccin-frappe.tmTheme`
 
 ## Desired State
 
-- Add Catppuccin Frappe theme: create `.config/yazi/theme.toml` from the official catppuccin/yazi port
-- Everything else stays as-is
+Everything is implemented. No outstanding changes.
 
 ## Design Decisions
 
@@ -34,7 +38,8 @@ Yazi is the terminal file manager, configured minimally with hidden files visibl
 ## Implementation Files
 
 - `.config/yazi/yazi.toml`
-- `.config/yazi/theme.toml` (to be created)
+- `.config/yazi/theme.toml`
+- `.config/yazi/Catppuccin-frappe.tmTheme`
 
 ## Verification
 

@@ -13,6 +13,7 @@ All design intent lives in `specs/`. Start there: [specs/README.md](specs/README
 ## Quick Reference
 
 ```bash
+bash setup.sh             # full bootstrap (fresh Mac or idempotent re-run)
 make all                  # rebuild nix-darwin + copy dotfiles to $HOME
 make rebuild              # nix-darwin rebuild only
 make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
@@ -23,6 +24,7 @@ make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
 ```
 .
 ├── CLAUDE.md                        # this file
+├── setup.sh                         # bootstrap script (curl | sh)
 ├── specs/                           # design specs (intent, not implementation)
 ├── Makefile                         # setup orchestration
 ├── .zshrc                           # shell config

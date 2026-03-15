@@ -10,17 +10,19 @@ Catppuccin Frappe is the universal theme across all tools. Every application tha
 |------|---------|-----|
 | Kitty | Yes | `current-theme.conf` (full Frappe palette) |
 | Neovim | Yes | catppuccin/nvim plugin, `flavour = "frappe"` |
-| Yazi | No | Uses default colors |
+| Yazi | Yes | `.config/yazi/theme.toml` from catppuccin/yazi (lavender accent) |
 
-**Files:** `.config/kitty/current-theme.conf`, `.config/nvim/init.lua`
+**Files:** `.config/kitty/current-theme.conf`, `.config/nvim/init.lua`, `.config/yazi/theme.toml`, `.config/yazi/Catppuccin-frappe.tmTheme`
 
 ## Desired State
+
+All tools are themed. No outstanding changes.
 
 | Tool | Themed? | How |
 |------|---------|-----|
 | Kitty | Yes | `current-theme.conf` (no change) |
 | Neovim | Yes | catppuccin/nvim (no change) |
-| Yazi | Yes | `.config/yazi/theme.toml` from catppuccin/yazi |
+| Yazi | Yes | `.config/yazi/theme.toml` from catppuccin/yazi (no change) |
 
 ## Design Decisions
 
@@ -38,7 +40,8 @@ Catppuccin Frappe is the universal theme across all tools. Every application tha
 
 - `.config/kitty/current-theme.conf`
 - `.config/nvim/init.lua` (catppuccin setup block)
-- `.config/yazi/theme.toml` (to be created)
+- `.config/yazi/theme.toml`
+- `.config/yazi/Catppuccin-frappe.tmTheme`
 
 ## Verification
 
