@@ -10,7 +10,7 @@ All preferences are managed via `system.defaults` in `nix/flake.nix`:
 
 - **Dock**: app switcher on all displays, auto-hide, minimize to application
 - **Finder**: show extensions, show hidden files, default to list view, show path bar
-- **Keyboard**: fast key repeat (`KeyRepeat = 2`), short initial repeat delay (`InitialKeyRepeat = 15`)
+- **Keyboard**: fast key repeat (`KeyRepeat = 2`), short initial repeat delay (`InitialKeyRepeat = 15`), Caps Lock remapped to Escape (`system.keyboard.remapCapsLockToEscape`)
 - **Screenshots**: save to `~/Screenshots`, disable shadow
 - **Trackpad**: tap to click, natural scrolling
 - **Rectangle**: launch on login, alternate shortcuts, 5px gap/snap margins, cycle sizes on repeat
@@ -19,7 +19,7 @@ All preferences are managed via `system.defaults` in `nix/flake.nix`:
 
 ## Desired State
 
-All preferences are implemented. No remaining items.
+No remaining delta. All macOS preferences are implemented.
 
 ## Design Decisions
 
@@ -57,4 +57,5 @@ defaults read com.apple.screencapture disable-shadow          # → 1
 defaults read com.apple.AppleMultitouchTrackpad Clicking      # → 1
 defaults read NSGlobalDomain com.apple.swipescrolldirection   # → 1
 ls -d ~/Screenshots                                          # → exists
+hidutil property --get UserKeyMapping                         # → Caps Lock (0x700000039) → Escape (0x700000029)
 ```

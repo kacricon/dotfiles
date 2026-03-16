@@ -34,6 +34,7 @@ Add a `system.defaults` block to the `configuration` module in `nix/flake.nix` w
 
 - [x] `system.defaults.NSGlobalDomain.KeyRepeat = 2` — fast key repeat
 - [x] `system.defaults.NSGlobalDomain.InitialKeyRepeat = 15` — short initial repeat delay
+- [x] `system.keyboard.enableKeyMapping = true` + `system.keyboard.remapCapsLockToEscape = true` — Caps Lock → Escape
 
 ### Screenshots (macos.md §Desired State)
 

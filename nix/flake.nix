@@ -81,6 +81,12 @@
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
 
+      # Keyboard remapping (specs/macos.md)
+      system.keyboard = {
+        enableKeyMapping = true;
+        remapCapsLockToEscape = true;
+      };
+
       # macOS system preferences (specs/macos.md)
       system.defaults = {
         dock = {

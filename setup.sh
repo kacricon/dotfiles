@@ -59,3 +59,14 @@ make -C "$DOTFILES_DIR" apply_dotfiles
 ok "dotfiles applied"
 
 ok "bootstrap complete"
+
+echo ""
+echo "┌─────────────────────────────────────────────┐"
+echo "│          Post-bootstrap checklist            │"
+echo "├─────────────────────────────────────────────┤"
+echo "│ □ Set git identity:                         │"
+echo "│   git config --global user.name \"Your Name\" │"
+echo "│   git config --global user.email \"you@…\"    │"
+echo "│ □ Install Bitwarden extension in Zen        │"
+echo "│ □ Set Zen as default browser                │"
+echo "└─────────────────────────────────────────────┘"

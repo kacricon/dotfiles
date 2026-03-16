@@ -23,6 +23,7 @@ Create `setup.sh` — an idempotent bootstrap script that takes a fresh Mac from
   5. Apply dotfiles via `make apply_dotfiles`
 - [x] Make script `chmod +x`
 - [x] No interactive prompts — fully unattended after initial `curl`
+- [x] Print post-bootstrap manual checklist (git identity, Bitwarden extension, default browser)
 
 ## Phase 2: Wire into Makefile
 
