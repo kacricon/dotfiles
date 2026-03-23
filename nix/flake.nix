@@ -68,6 +68,7 @@
           "kitty"
           "notion"
           "obsidian"
+          "qobuz"
           "rectangle"
           "vitals"
         ];
