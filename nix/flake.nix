@@ -34,6 +34,9 @@
           pkgs.poppler-utils
           pkgs.fd
           pkgs.fzf
+
+          # languages
+          pkgs.python3
         ];
 
       # Fonts
