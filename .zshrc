@@ -21,6 +21,7 @@ alias gs="git status"
 alias newvenv="python3 -m venv .venv"
 alias venv="source .venv/bin/activate"
 alias reqs="pip install -r requirements.txt"
+alias claude-yolo="claude --dangerously-skip-permissions"
 
 # prompt
 PROMPT="; "
