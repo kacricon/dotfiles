@@ -65,16 +65,18 @@
           # GUI applications
           "claude-code"
           "codex"
-          "zen"
           "discord"
           "fantastical"
           "figma"
+          "google-chrome"
           "kitty"
           "notion"
           "obsidian"
           "qobuz"
           "rectangle"
+          "roon"
           "vitals"
+          "zen"
         ];
 
         masApps = {};
