@@ -75,6 +75,7 @@
           "qobuz"
           "rectangle"
           "roon"
+          "spotify"
           "vitals"
           "zen"
         ];
