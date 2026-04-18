@@ -9,15 +9,16 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 `nix/flake.nix` is the single source of truth for all packages. The legacy `Brewfile` has been deleted.
 
 **Nix-darwin** (`nix/flake.nix`) manages:
-- CLI tools: universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide
+- CLI tools: universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide, python3
 - Yazi + deps: yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf
+- External flakes: hermes-agent (from `github:NousResearch/hermes-agent`)
 - Fonts: NerdFontsSymbolsOnly
 - Homebrew integration (casks, brews, masApps) with `cleanup = "zap"`
 
 **Homebrew** (via nix-darwin `homebrew` block):
 - Taps: `caarlos0/tap`
 - Brews: `caarlos0/tap/timer` (not in nixpkgs)
-- Casks: claude, codex, zen, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
+- Casks: claude-code, codex, discord, fantastical, figma, google-chrome, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, vitals, zen
 Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
 
 **Files:** `nix/flake.nix`
@@ -29,13 +30,16 @@ No remaining delta — current state matches desired state.
 ### Package inventory
 
 **Nix system packages** (CLI):
-universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf
+universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf, python3
+
+**External flake packages:**
+hermes-agent (via `github:NousResearch/hermes-agent`)
 
 **Homebrew brews** (no Nix equivalent):
 caarlos0/tap/timer
 
 **Homebrew casks** (GUI apps):
-claude, codex, zen, discord, fantastical, figma, kitty, notion, obsidian, rectangle, vitals
+claude-code, codex, discord, fantastical, figma, google-chrome, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, vitals, zen
 
 **Fonts:**
 NerdFontsSymbolsOnly (via nixpkgs)
