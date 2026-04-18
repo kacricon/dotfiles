@@ -1,7 +1,7 @@
 .PHONY: all bootstrap rebuild apply_dotfiles restore_backup ralph
 
 BACKUP_DIR := $(HOME)/dotfiles_backup
-FILES := .zshrc .config
+FILES := .zshrc .config .hermes
 
 all: rebuild apply_dotfiles
 

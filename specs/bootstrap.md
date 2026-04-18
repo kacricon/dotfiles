@@ -12,7 +12,7 @@ The bootstrap spec defines how a fresh Mac goes from zero to a fully configured 
 2. Install Nix via Determinate Systems installer (skips if present)
 3. Clone repo to `~/projects/dotfiles` (pulls if exists, clones if not)
 4. Run `darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop`
-5. Apply dotfiles via `make apply_dotfiles` (backup + copy)
+5. Apply dotfiles via `make apply_dotfiles` (backup + copy — includes `.zshrc`, `.config`, `.hermes`)
 6. Print post-bootstrap manual checklist (git identity, Bitwarden extension, default browser)
 
 Also available: `make all` (steps 4+5), `make bootstrap` (runs `setup.sh`).
