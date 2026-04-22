@@ -39,6 +39,9 @@
           # languages
           pkgs.python3
 
+          # email
+          pkgs.himalaya
+
           # external flakes
           hermes-agent.packages.aarch64-darwin.default
         ];

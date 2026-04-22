@@ -23,3 +23,4 @@ Each spec describes the **desired end-state** for one concern. Specs are the sou
 | [macos-implementation-plan](macos-implementation-plan.md) | [macos](macos.md) | Done |
 | [file-manager-implementation-plan](file-manager-implementation-plan.md) | [file-manager](file-manager.md) | Done |
 | [bootstrap-implementation-plan](bootstrap-implementation-plan.md) | [bootstrap](bootstrap.md) | Done |
+| [email-implementation-plan](email-implementation-plan.md) | [packages](packages.md) | Done |
