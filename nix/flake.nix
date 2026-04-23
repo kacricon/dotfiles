@@ -37,6 +37,7 @@
           pkgs.fzf
 
           # languages
+          pkgs.bun
           pkgs.python3
 
           # email
