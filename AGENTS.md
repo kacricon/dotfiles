@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 Specs describe intent; code describes reality. Always read the code before assuming a spec is implemented. When a spec's "Current State" diverges from the code, the code wins — update the spec.
 
@@ -23,7 +23,7 @@ make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
 
 ```
 .
-├── CLAUDE.md                        # this file
+├── AGENTS.md                        # this file
 ├── setup.sh                         # bootstrap script (curl | sh)
 ├── specs/                           # design specs (intent, not implementation)
 ├── Makefile                         # setup orchestration
@@ -32,7 +32,8 @@ make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
 │   ├── nvim/init.lua                # neovim (lazy.nvim, single file)
 │   ├── kitty/kitty.conf             # terminal emulator
 │   ├── kitty/current-theme.conf     # catppuccin frappe
-│   └── yazi/yazi.toml               # file manager
+│   ├── yazi/yazi.toml               # file manager
+│   └── himalaya/config.toml         # email client (mailbox.org)
 └── nix/flake.nix                    # nix-darwin system config
 ```
 
@@ -40,7 +41,7 @@ make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
 
 - **Theme**: Catppuccin Frappe everywhere
 - **Packages**: Nix-darwin first, Homebrew only for casks/mas/unavailable taps
-- **Branch**: `master` is main; `test/nix` is the active migration branch
+- **Branch**: `master` is main; `test/nix` is a dormant historical branch from the nix migration
 - **Paths**: XDG-style (`~/.config/<tool>/`)
 - **Editor**: Neovim, single `init.lua`, lazy.nvim
 - **Shell**: raw zsh, vi-mode, no framework
@@ -56,7 +57,7 @@ When picking up work from a spec:
 4. **Implement** — make the changes
 5. **Verify** — run the spec's verification commands
 6. **Update the spec** — move items from "Desired State" to "Current State" once implemented
-7. **Update downstream references** — update any files that reference changed functionality: Makefile targets, CLAUDE.md quick reference/architecture, other specs, and specs/README.md
+7. **Update downstream references** — update any files that reference changed functionality: Makefile targets, AGENTS.md quick reference/architecture, other specs, and specs/README.md
 
 Never implement directly from a spec without reading the actual code first. Specs can be stale.
 
