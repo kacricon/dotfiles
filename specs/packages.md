@@ -18,7 +18,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 **Homebrew** (via nix-darwin `homebrew` block):
 - Taps: `caarlos0/tap`
 - Brews: `caarlos0/tap/timer` (not in nixpkgs)
-- Casks: claude-code, codex, discord, fantastical, figma, google-chrome, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, vitals, zen
+- Casks: claude-code, codex, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals, zen
 Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
 
 **Files:** `nix/flake.nix`
@@ -39,7 +39,7 @@ hermes-agent (via `github:NousResearch/hermes-agent`)
 caarlos0/tap/timer
 
 **Homebrew casks** (GUI apps):
-claude-code, codex, discord, fantastical, figma, google-chrome, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, vitals, zen
+claude-code, codex, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals, zen
 
 **Fonts:**
 NerdFontsSymbolsOnly (via nixpkgs)

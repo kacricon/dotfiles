@@ -77,6 +77,7 @@
           "fantastical"
           "figma"
           "google-chrome"
+          "helium-browser"
           "kitty"
           "notion"
           "obsidian"
@@ -84,6 +85,7 @@
           "rectangle"
           "roon"
           "spotify"
+          "stremio"
           "vitals"
           "zen"
         ];
