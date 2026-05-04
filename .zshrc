@@ -2,6 +2,7 @@
 #  ===================
 
 export LC_ALL=en_US.UTF-8
+export PATH="$HOME/.bun/bin:$PATH"
 
 # history
 HISTFILE=~/.zsh_history
