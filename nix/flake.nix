@@ -38,6 +38,7 @@
 
           # languages
           pkgs.bun
+          pkgs.nodejs
           pkgs.python3
 
           # email
@@ -67,6 +68,7 @@
 
         brews = [
           "caarlos0/tap/timer"  # Not available in nixpkgs
+          "rtk"  # Not available in nixpkgs
         ];
 
         casks = [
@@ -87,7 +89,6 @@
           "spotify"
           "stremio"
           "vitals"
-          "zen"
         ];
 
         masApps = {};

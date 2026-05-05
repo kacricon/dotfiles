@@ -9,7 +9,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 `nix/flake.nix` is the single source of truth for all packages. The legacy `Brewfile` has been deleted.
 
 **Nix-darwin** (`nix/flake.nix`) manages:
-- CLI tools: universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide, bun, python3, himalaya
+- CLI tools: universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide, bun, nodejs, python3, himalaya
 - Yazi + deps: yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf
 - External flakes: hermes-agent (from `github:NousResearch/hermes-agent`)
 - Fonts: NerdFontsSymbolsOnly
@@ -17,8 +17,8 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 
 **Homebrew** (via nix-darwin `homebrew` block):
 - Taps: `caarlos0/tap`
-- Brews: `caarlos0/tap/timer` (not in nixpkgs)
-- Casks: claude-code, codex, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals, zen
+- Brews: `caarlos0/tap/timer`, `rtk` (not in nixpkgs)
+- Casks: claude-code, codex, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals
 Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
 
 **Files:** `nix/flake.nix`
@@ -30,16 +30,16 @@ No remaining delta — current state matches desired state.
 ### Package inventory
 
 **Nix system packages** (CLI):
-universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf, bun, python3, himalaya
+universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf, bun, nodejs, python3, himalaya
 
 **External flake packages:**
 hermes-agent (via `github:NousResearch/hermes-agent`)
 
 **Homebrew brews** (no Nix equivalent):
-caarlos0/tap/timer
+caarlos0/tap/timer, rtk
 
 **Homebrew casks** (GUI apps):
-claude-code, codex, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals, zen
+claude-code, codex, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals
 
 **Fonts:**
 NerdFontsSymbolsOnly (via nixpkgs)

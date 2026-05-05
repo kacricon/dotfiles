@@ -67,6 +67,6 @@ echo "├───────────────────────�
 echo "│ □ Set git identity:                         │"
 echo "│   git config --global user.name \"Your Name\" │"
 echo "│   git config --global user.email \"you@…\"    │"
-echo "│ □ Install Bitwarden extension in Zen        │"
-echo "│ □ Set Zen as default browser                │"
+echo "│ □ Install Bitwarden extension in browser    │"
+echo "│ □ Set default browser                       │"
 echo "└─────────────────────────────────────────────┘"
