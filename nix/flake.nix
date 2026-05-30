@@ -25,6 +25,7 @@
           pkgs.tlrc
           pkgs.exercism
           pkgs.terminal-notifier
+          pkgs.codex
 
           # yazi and dependencies
           pkgs.yazi
@@ -74,7 +75,7 @@
         casks = [
           # GUI applications
           "claude-code"
-          "codex"
+          "codex-app"
           "discord"
           "fantastical"
           "figma"

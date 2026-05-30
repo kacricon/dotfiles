@@ -5,7 +5,7 @@ Each spec describes the **desired end-state** for one concern. Specs are the sou
 | Spec | Description | Key Files |
 |------|-------------|-----------|
 | [bootstrap](bootstrap.md) | Fresh Mac setup pipeline | `setup.sh`, `Makefile` |
-| [packages](packages.md) | Package management (Nix-darwin + Homebrew fallback) | `nix/flake.nix`, `Brewfile` |
+| [packages](packages.md) | Package management (Nix-darwin + Homebrew fallback) | `nix/flake.nix` |
 | [shell](shell.md) | Zsh configuration | `.zshrc` |
 | [editor](editor.md) | Neovim configuration | `.config/nvim/init.lua` |
 | [terminal](terminal.md) | Kitty terminal | `.config/kitty/kitty.conf` |
