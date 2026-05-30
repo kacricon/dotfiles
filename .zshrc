@@ -23,7 +23,7 @@ alias newvenv="python3 -m venv .venv"
 alias venv="source .venv/bin/activate"
 alias reqs="pip install -r requirements.txt"
 alias claude-yolo="claude --dangerously-skip-permissions"
-alias codex-yolo="codex --full-auto"
+alias codex-yolo="codex --dangerously-bypass-approvals-and-sandbox"
 
 # prompt
 PROMPT="; "

@@ -20,6 +20,8 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 - Brews: `caarlos0/tap/timer`, `rtk` (not in nixpkgs)
 - Casks: claude-code, codex-app, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals
 Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
+Refreshing package versions means updating the nixpkgs lock with `make update_nixpkgs`
+or running `make upgrade` to update nixpkgs and rebuild in one step.
 
 **Files:** `nix/flake.nix`
 
@@ -49,7 +51,7 @@ NerdFontsSymbolsOnly (via nixpkgs)
 - **Nix-first**: every CLI tool goes into `environment.systemPackages` unless it genuinely doesn't exist in nixpkgs.
 - **Homebrew cleanup = "zap"**: nix-darwin removes casks/brews not declared in the flake, keeping the system clean.
 - **Codex split**: `pkgs.codex` provides the terminal CLI; the desktop app is managed as the `codex-app` Homebrew cask.
-- **No pinning yet**: using `nixpkgs-unstable` for latest packages. Pin to a specific commit if reproducibility becomes critical.
+- **Pinned nixpkgs input**: `flake.lock` pins `nixpkgs-unstable` for reproducible rebuilds. Run `make update_nixpkgs` when package freshness is desired.
 - **timer stays in Homebrew**: `caarlos0/tap/timer` is a custom tap with no nixpkgs equivalent.
 
 ## Dependencies
@@ -63,7 +65,10 @@ NerdFontsSymbolsOnly (via nixpkgs)
 ## Verification
 
 ```bash
-darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
+make rebuild
+
+# Refresh nixpkgs before rebuilding:
+make upgrade
 
 # CLI tools from Nix:
 which nvim && which rg && which yazi && which tree && which bun && which himalaya && which codex

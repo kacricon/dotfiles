@@ -1,7 +1,9 @@
-.PHONY: all bootstrap rebuild apply_dotfiles restore_backup ralph
+.PHONY: all bootstrap rebuild update_nixpkgs upgrade apply_dotfiles restore_backup ralph
 
 BACKUP_DIR := $(HOME)/dotfiles_backup
 FILES := .zshrc .config
+NIX_DIR := $(HOME)/projects/dotfiles/nix
+NIX_FLAKE := $(NIX_DIR)\#laptop
 
 all: rebuild apply_dotfiles
 
@@ -9,7 +11,12 @@ bootstrap:
 	bash setup.sh
 
 rebuild:
-	sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
+	sudo darwin-rebuild switch --flake $(NIX_FLAKE)
+
+update_nixpkgs:
+	nix flake update nixpkgs --flake $(NIX_DIR)
+
+upgrade: update_nixpkgs rebuild
 
 apply_dotfiles:
 	@echo "Backing up current dotfiles..."

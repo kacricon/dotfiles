@@ -15,3 +15,11 @@ This is idempotent — re-running it applies the latest configuration without er
 3. Clone (or pull) this repo to `~/projects/dotfiles`
 4. Run `darwin-rebuild switch`
 5. Apply dotfiles to `$HOME`
+
+## Maintenance
+
+```bash
+make rebuild         # rebuild from the pinned flake.lock
+make update_nixpkgs  # refresh the nixpkgs pin
+make upgrade         # update nixpkgs, then rebuild
+```
