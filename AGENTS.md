@@ -13,12 +13,12 @@ All design intent lives in `specs/`. Start there: [specs/README.md](specs/README
 ## Quick Reference
 
 ```bash
-bash setup.sh             # full bootstrap (fresh Mac or idempotent re-run)
-make all                  # rebuild nix-darwin + copy dotfiles to $HOME
+sh setup.sh               # full bootstrap (fresh Mac or idempotent re-run)
+make all                  # rebuild nix-darwin + sync managed dotfiles to $HOME
 make rebuild              # nix-darwin rebuild only
 make update_nixpkgs       # update the pinned nixpkgs flake input
 make upgrade              # update nixpkgs + rebuild nix-darwin
-make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
+make apply_dotfiles       # sync .zshrc and managed .config dirs to $HOME (with backup)
 ```
 
 ## Architecture
@@ -34,8 +34,7 @@ make apply_dotfiles       # copy .zshrc and .config to $HOME (with backup)
 │   ├── nvim/init.lua                # neovim (lazy.nvim, single file)
 │   ├── kitty/kitty.conf             # terminal emulator
 │   ├── kitty/current-theme.conf     # catppuccin frappe
-│   ├── yazi/yazi.toml               # file manager
-│   └── himalaya/config.toml         # email client (mailbox.org)
+│   └── yazi/yazi.toml               # file manager
 └── nix/flake.nix                    # nix-darwin system config
 ```
 
@@ -55,28 +54,9 @@ When picking up work from a spec:
 
 1. **Read the spec** — understand desired vs current state
 2. **Read the code** — verify the spec's "Current State" is accurate; fix the spec if not
-3. **Create an implementation plan** — list files to change, dependencies, and verification steps
-4. **Implement** — make the changes
-5. **Verify** — run the spec's verification commands
-6. **Update the spec** — move items from "Desired State" to "Current State" once implemented
-7. **Update downstream references** — update any files that reference changed functionality: Makefile targets, AGENTS.md quick reference/architecture, other specs, and specs/README.md
+3. **Implement** — make the changes
+4. **Verify** — run the spec's verification commands
+5. **Update the spec** — move items from "Desired State" to "Current State" once implemented
+6. **Update downstream references** — update any files that reference changed functionality: Makefile targets, AGENTS.md quick reference/architecture, other specs, and specs/README.md
 
 Never implement directly from a spec without reading the actual code first. Specs can be stale.
-
-## Creating Implementation Plans
-
-Implementation plans live in `specs/` as `<spec_name>-implementation-plan.md` (e.g., `specs/shell-implementation-plan.md`).
-
-Structure:
-
-- **Overview**: what and why
-- **File inventory**: table of files to create, modify, or delete
-- **Phases**: numbered phases with checklist items (`- [ ]`), each referencing the spec section it implements
-- **Verification**: concrete commands that prove the changes work
-
-Guidelines:
-
-- Reference the spec by name and section (e.g., "shell.md §Desired State")
-- Identify cross-spec dependencies (e.g., packages must exist before shell can use them)
-- Keep plans small — one logical change per plan
-- Mark items `[x]` as they are completed

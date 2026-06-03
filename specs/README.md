@@ -12,14 +12,3 @@ Each spec describes the **desired end-state** for one concern. Specs are the sou
 | [file-manager](file-manager.md) | Yazi file manager | `.config/yazi/yazi.toml` |
 | [macos](macos.md) | macOS system preferences | `Makefile`, `nix/flake.nix` |
 | [theme](theme.md) | Catppuccin Frappe consistency | All config files |
-
-## Implementation Plans
-
-| Plan | Spec | Status |
-|------|------|--------|
-| [shell-implementation-plan](shell-implementation-plan.md) | [shell](shell.md) | Done |
-| [packages-implementation-plan](packages-implementation-plan.md) | [packages](packages.md) | Done |
-| [macos-implementation-plan](macos-implementation-plan.md) | [macos](macos.md) | Done |
-| [file-manager-implementation-plan](file-manager-implementation-plan.md) | [file-manager](file-manager.md) | Done |
-| [bootstrap-implementation-plan](bootstrap-implementation-plan.md) | [bootstrap](bootstrap.md) | Done |
-| [email-implementation-plan](email-implementation-plan.md) | [packages](packages.md) | Done |

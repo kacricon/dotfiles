@@ -9,7 +9,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 `nix/flake.nix` is the single source of truth for all packages. The legacy `Brewfile` has been deleted.
 
 **Nix-darwin** (`nix/flake.nix`) manages:
-- CLI tools: universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, codex, zoxide, bun, nodejs, python3, himalaya
+- CLI tools: universal-ctags, neovim, tree-sitter, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, codex, zoxide, bun, nodejs, python3
 - Yazi + deps: yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf
 - External flakes: hermes-agent (from `github:NousResearch/hermes-agent`)
 - Fonts: NerdFontsSymbolsOnly
@@ -32,7 +32,7 @@ No remaining delta — current state matches desired state.
 ### Package inventory
 
 **Nix system packages** (CLI):
-universal-ctags, neovim, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, codex, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf, bun, nodejs, python3, himalaya
+universal-ctags, neovim, tree-sitter, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, codex, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf, bun, nodejs, python3
 
 **External flake packages:**
 hermes-agent (via `github:NousResearch/hermes-agent`)
@@ -71,7 +71,7 @@ make rebuild
 make upgrade
 
 # CLI tools from Nix:
-which nvim && which rg && which yazi && which tree && which bun && which himalaya && which codex
+which nvim && which tree-sitter && which rg && which yazi && which tree && which bun && which codex
 
 # Homebrew-managed apps:
 brew list --cask | grep -q kitty

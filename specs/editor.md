@@ -16,8 +16,8 @@ Neovim is the primary editor, configured with a single `init.lua` using lazy.nvi
 
 **Plugins** (lazy.nvim, auto-bootstrapped):
 1. **catppuccin/nvim** — Frappe flavour
-2. **telescope.nvim** (0.1.8) — fuzzy finder, respects `.git/`, `.venv/`, `.ruff_cache/`
-3. **nvim-treesitter** — syntax for: bash, lua, c, python, go, html, css, javascript, typescript, svelte, markdown
+2. **telescope.nvim** (`master`) — fuzzy finder, respects `.git/`, `.venv/`, `.ruff_cache/`, compatible with Neovim 0.12 Treesitter preview APIs
+3. **nvim-treesitter** (`main`) — parser/query install for: bash, c, css, go, html, javascript, lua, markdown, markdown_inline, python, query, svelte, typescript, vim, vimdoc. Highlighting is enabled with Neovim's built-in `vim.treesitter.start()` for matching filetypes.
 4. **goyo.vim** — distraction-free writing
 5. **vim-slime** — REPL integration targeting kitty (`slime_target = "kitty"`)
 6. **vim-kitty** — kitty.conf syntax highlighting
@@ -54,7 +54,7 @@ These are optional enhancements, not blockers.
 ## Dependencies
 
 - [terminal](terminal.md) — kitty must have remote control enabled for vim-slime
-- [packages](packages.md) — neovim, ripgrep, universal-ctags must be installed
+- [packages](packages.md) — neovim, tree-sitter, ripgrep, universal-ctags must be installed
 - [theme](theme.md) — catppuccin Frappe flavour
 
 ## Implementation Files
@@ -64,7 +64,8 @@ These are optional enhancements, not blockers.
 ## Verification
 
 ```bash
-nvim --headless "+Lazy! sync" +qa        # plugins install without error
+nix shell nixpkgs#tree-sitter -c nvim --headless "+Lazy! sync" +qa
+nvim --headless -u .config/nvim/init.lua "+edit specs/editor.md" "+redraw!" +qa
 nvim -c ":checkhealth" -c ":q"           # no critical warnings
 nvim -c ":Telescope find_files" -c ":q"  # telescope loads
 ```

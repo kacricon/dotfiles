@@ -64,8 +64,8 @@ vim.opt.rtp:prepend(lazypath)
 -- setup lazy.nvim
 local plugins = {
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { "nvim-telescope/telescope.nvim", tag = '0.1.8', dependencies = { 'nvim-lua/plenary.nvim' } },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "nvim-telescope/telescope.nvim", branch = "master", dependencies = { 'nvim-lua/plenary.nvim' } },
+  { "nvim-treesitter/nvim-treesitter", branch = "main", lazy = false, build = ":TSUpdate" },
   { "junegunn/goyo.vim", name = "goyo" },
   { "jpalardy/vim-slime", name = "vim-slime" },
   { "fladson/vim-kitty", name = "vim-kitty" },
@@ -121,11 +121,54 @@ vim.keymap.set("n", "<C-p>", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 
 -- setup treesitter
-local config = require("nvim-treesitter.configs")
-config.setup({
-  ensure_installed = {"bash", "lua", "c", "python", "go", "html", "css", "javascript", "typescript", "svelte", "markdown"},
-  highlight = { enable = true },
-  indent = { enable = true },
+local treesitter_parsers = {
+  "bash",
+  "c",
+  "css",
+  "go",
+  "html",
+  "javascript",
+  "lua",
+  "markdown",
+  "markdown_inline",
+  "python",
+  "query",
+  "svelte",
+  "typescript",
+  "vim",
+  "vimdoc",
+}
+
+local treesitter_filetypes = {
+  "bash",
+  "c",
+  "css",
+  "go",
+  "help",
+  "html",
+  "javascript",
+  "lua",
+  "markdown",
+  "python",
+  "query",
+  "sh",
+  "svelte",
+  "typescript",
+  "vim",
+}
+
+local treesitter = require("nvim-treesitter")
+treesitter.setup()
+treesitter.install(treesitter_parsers)
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = treesitter_filetypes,
+  callback = function(args)
+    local ok = pcall(vim.treesitter.start, args.buf)
+    if ok then
+      vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
 })
 
 -- setup catppuccin

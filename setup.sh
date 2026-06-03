@@ -1,72 +1,170 @@
-#!/bin/bash
-set -euo pipefail
+#!/bin/sh
+set -eu
 
-DOTFILES_DIR="$HOME/projects/dotfiles"
-REPO_URL="https://github.com/jrc/dotfiles.git"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/projects/dotfiles}"
+REPO_URL="${REPO_URL:-https://github.com/kacricon/dotfiles.git}"
+REPO_BRANCH="${REPO_BRANCH:-master}"
+NIX_CONFIG_NAME="${NIX_CONFIG_NAME:-laptop}"
+
+NIX_DIR="$DOTFILES_DIR/nix"
+NIX_FLAKE="$NIX_DIR#$NIX_CONFIG_NAME"
+DARWIN_REBUILD_PACKAGE="$NIX_DIR#darwin-rebuild"
+NIX_DAEMON_SH="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
 
 info() { printf '\033[1;34m==> %s\033[0m\n' "$1"; }
 ok()   { printf '\033[1;32m==> %s\033[0m\n' "$1"; }
 warn() { printf '\033[1;33m==> %s\033[0m\n' "$1"; }
+die()  { printf '\033[1;31m==> %s\033[0m\n' "$1" >&2; exit 1; }
 
-# 1. Xcode Command Line Tools
-info "checking xcode command line tools..."
-if xcode-select -p &>/dev/null; then
-  ok "xcode command line tools already installed"
-else
-  info "installing xcode command line tools..."
-  xcode-select --install
-  until xcode-select -p &>/dev/null; do
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+require_command() {
+  if ! have "$1"; then
+    die "$1 is required but was not found on PATH"
+  fi
+}
+
+run_git() {
+  GIT_TERMINAL_PROMPT=0 git "$@"
+}
+
+load_nix_profile() {
+  if [ -r "$NIX_DAEMON_SH" ]; then
+    # shellcheck disable=SC1090
+    . "$NIX_DAEMON_SH"
+  fi
+}
+
+check_host() {
+  if [ "$(id -u)" -eq 0 ]; then
+    die "run setup.sh as your normal user, not with sudo"
+  fi
+
+  if [ "$(uname -s)" != "Darwin" ]; then
+    die "this bootstrap script only supports macOS"
+  fi
+
+  if [ "$(uname -m)" != "arm64" ]; then
+    die "this dotfiles flake targets Apple Silicon Macs; found $(uname -m)"
+  fi
+}
+
+ensure_xcode_clt() {
+  info "checking xcode command line tools..."
+  if xcode-select -p >/dev/null 2>&1; then
+    ok "xcode command line tools already installed"
+    return
+  fi
+
+  info "opening xcode command line tools installer..."
+  xcode-select --install >/dev/null 2>&1 || true
+  warn "complete the macOS installer dialog to continue"
+
+  until xcode-select -p >/dev/null 2>&1; do
     sleep 5
   done
+
   ok "xcode command line tools installed"
-fi
+}
 
-# 2. Nix (Determinate Systems installer)
-info "checking nix..."
-if command -v nix &>/dev/null; then
-  ok "nix already installed"
-else
-  info "installing nix via determinate systems installer..."
-  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
-  # Source nix in current shell
-  if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
-    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+ensure_nix() {
+  info "checking nix..."
+  load_nix_profile
+
+  if have nix; then
+    ok "nix already installed"
+    return
   fi
-  ok "nix installed"
-fi
 
-# 3. Clone or update dotfiles repo
-info "checking dotfiles repo..."
-if [ -d "$DOTFILES_DIR/.git" ]; then
-  info "dotfiles repo exists, pulling latest..."
-  git -C "$DOTFILES_DIR" pull --ff-only || warn "git pull failed, continuing with existing state"
-  ok "dotfiles repo up to date"
-else
+  require_command curl
+
+  info "installing nix via determinate systems installer..."
+  installer="$(mktemp "${TMPDIR:-/tmp}/nix-installer.XXXXXX")"
+  trap 'rm -f "$installer"' EXIT HUP INT TERM
+
+  curl --proto '=https' --tlsv1.2 -fsSL -o "$installer" https://install.determinate.systems/nix
+  sh "$installer" install --no-confirm
+
+  load_nix_profile
+  if ! have nix; then
+    die "nix installed, but nix is not available on PATH; open a new shell and rerun setup.sh"
+  fi
+
+  ok "nix installed"
+}
+
+ensure_dotfiles_repo() {
+  require_command git
+
+  info "checking dotfiles repo..."
+  if [ -d "$DOTFILES_DIR/.git" ]; then
+    if [ -n "$(run_git -C "$DOTFILES_DIR" status --porcelain)" ]; then
+      warn "dotfiles repo has local changes; skipping automatic update"
+      return
+    fi
+
+    info "dotfiles repo exists, fetching latest $REPO_BRANCH from public remote..."
+    if run_git -C "$DOTFILES_DIR" fetch "$REPO_URL" "$REPO_BRANCH" &&
+       run_git -C "$DOTFILES_DIR" merge --ff-only FETCH_HEAD; then
+      ok "dotfiles repo up to date"
+    else
+      warn "could not fast-forward dotfiles repo; continuing with existing checkout"
+    fi
+    return
+  fi
+
+  if [ -e "$DOTFILES_DIR" ]; then
+    die "$DOTFILES_DIR already exists but is not a git checkout"
+  fi
+
   info "cloning dotfiles repo..."
   mkdir -p "$(dirname "$DOTFILES_DIR")"
-  git clone "$REPO_URL" "$DOTFILES_DIR"
+  run_git clone --branch "$REPO_BRANCH" "$REPO_URL" "$DOTFILES_DIR"
   ok "dotfiles repo cloned"
-fi
+}
 
-# 4. Nix-darwin rebuild
-info "running darwin-rebuild switch..."
-sudo darwin-rebuild switch --flake "$DOTFILES_DIR/nix#laptop"
-ok "darwin-rebuild complete"
+run_darwin_switch() {
+  info "running darwin-rebuild switch..."
+  if have darwin-rebuild; then
+    darwin_rebuild="$(command -v darwin-rebuild)"
+    sudo "$darwin_rebuild" switch --flake "$NIX_FLAKE"
+  else
+    info "darwin-rebuild is not installed yet; bootstrapping it from the pinned flake..."
+    nix --extra-experimental-features 'nix-command flakes' run "$DARWIN_REBUILD_PACKAGE" -- switch --flake "$NIX_FLAKE"
+  fi
+  ok "darwin-rebuild complete"
+}
 
-# 5. Apply dotfiles
-info "applying dotfiles..."
-make -C "$DOTFILES_DIR" apply_dotfiles
-ok "dotfiles applied"
+apply_dotfiles() {
+  require_command make
 
-ok "bootstrap complete"
+  info "applying dotfiles..."
+  make -C "$DOTFILES_DIR" apply_dotfiles
+  ok "dotfiles applied"
+}
 
-echo ""
-echo "┌─────────────────────────────────────────────┐"
-echo "│          Post-bootstrap checklist            │"
-echo "├─────────────────────────────────────────────┤"
-echo "│ □ Set git identity:                         │"
-echo "│   git config --global user.name \"Your Name\" │"
-echo "│   git config --global user.email \"you@…\"    │"
-echo "│ □ Install Bitwarden extension in browser    │"
-echo "│ □ Set default browser                       │"
-echo "└─────────────────────────────────────────────┘"
+main() {
+  check_host
+  ensure_xcode_clt
+  ensure_nix
+  ensure_dotfiles_repo
+  run_darwin_switch
+  apply_dotfiles
+
+  ok "bootstrap complete"
+
+  echo ""
+  echo "┌─────────────────────────────────────────────┐"
+  echo "│          Post-bootstrap checklist            │"
+  echo "├─────────────────────────────────────────────┤"
+  echo "│ □ Set git identity:                         │"
+  echo "│   git config --global user.name \"Your Name\" │"
+  echo "│   git config --global user.email \"you@…\"    │"
+  echo "│ □ Install Bitwarden extension in browser    │"
+  echo "│ □ Set default browser                       │"
+  echo "└─────────────────────────────────────────────┘"
+}
+
+main "$@"

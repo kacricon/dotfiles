@@ -18,6 +18,7 @@
           # terminal tools
           pkgs.universal-ctags
           pkgs.neovim
+          pkgs.tree-sitter
           pkgs.ripgrep
           pkgs.git
           pkgs.git-lfs
@@ -41,9 +42,6 @@
           pkgs.bun
           pkgs.nodejs
           pkgs.python3
-
-          # email
-          pkgs.himalaya
 
           # external flakes
           hermes-agent.packages.aarch64-darwin.default
@@ -181,5 +179,8 @@
 
     # Expose the package set, including overlays, for convenience.
     darwinPackages = self.darwinConfigurations."laptop".pkgs;
+
+    # Used by setup.sh for the first switch, before darwin-rebuild is installed.
+    packages.aarch64-darwin.darwin-rebuild = nix-darwin.packages.aarch64-darwin.darwin-rebuild;
   };
 }
