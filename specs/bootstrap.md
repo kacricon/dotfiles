@@ -11,7 +11,7 @@ The bootstrap spec defines how a fresh Mac goes from zero to a fully configured 
 1. Install Xcode Command Line Tools (skips if present)
 2. Install Nix via Determinate Systems installer (skips if present)
 3. Clone repo to `~/projects/dotfiles` from the public HTTPS URL (fetches and fast-forwards if exists, clones if not; git terminal prompts are disabled)
-4. Run `sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop`, falling back to `sudo nix run ~/projects/dotfiles/nix#darwin-rebuild` for the first switch before `darwin-rebuild` is installed
+4. Run `sudo -H darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop`, falling back to `sudo -H nix run ~/projects/dotfiles/nix#darwin-rebuild` for the first switch before `darwin-rebuild` is installed
 5. Apply dotfiles via `make apply_dotfiles` (backup + sync — includes `.zshrc`, `.config/nvim`, `.config/kitty`, `.config/yazi`)
 6. Print post-bootstrap manual checklist (git identity, Bitwarden extension, default browser)
 
@@ -34,7 +34,8 @@ curl -fsSL https://raw.githubusercontent.com/kacricon/dotfiles/master/setup.sh |
 - **Nix over Makefile**: nix-darwin rebuild replaces `make install_packages`. The Makefile remains for `apply_dotfiles` and `configure_macos` until those are absorbed into nix-darwin or home-manager.
 - **No avoidable prompts**: setup.sh avoids package/auth prompts where possible. macOS may still show the Xcode Command Line Tools dialog, and sudo authentication is required for nix-darwin system activation.
 - **Public read-only repo access**: bootstrap uses `https://github.com/kacricon/dotfiles.git` with `GIT_TERMINAL_PROMPT=0`, so a stale or unavailable GitHub URL fails immediately instead of requesting username/password auth.
-- **First nix-darwin switch**: setup.sh and `make rebuild` use the flake-exposed `darwin-rebuild` package as root when the command is not installed yet. Subsequent runs use the installed `darwin-rebuild`, also as root.
+- **Determinate owns Nix**: Nix is installed and managed by Determinate Nix. nix-darwin sets `nix.enable = false` so it does not take over the Nix installation, daemon, or `/etc/nix/nix.conf`.
+- **First nix-darwin switch**: setup.sh and `make rebuild` use the flake-exposed `darwin-rebuild` package as root when the command is not installed yet. Subsequent runs use the installed `darwin-rebuild`, also as root. Both paths use `sudo -H` so Nix does not inherit the invoking user's `$HOME`.
 - **Dirty checkout safety**: reruns skip automatic repo updates when `~/projects/dotfiles` has local changes, avoiding accidental clobbering.
 - **Dotfile ownership**: `make apply_dotfiles` syncs only `.zshrc` and managed config directories (`nvim`, `kitty`, `yazi`) so repeat runs do not overwrite unrelated `~/.config` state.
 - **Backup safety**: create missing backups in `~/dotfiles_backup` before overwriting managed dotfiles, but leave existing backups unchanged on reruns.

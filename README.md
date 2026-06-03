@@ -13,7 +13,7 @@ This is idempotent — re-running it applies the latest configuration without er
 1. Install Xcode Command Line Tools
 2. Install Nix via Determinate Systems installer
 3. Clone (or fast-forward) this repo to `~/projects/dotfiles`
-4. Run `sudo darwin-rebuild switch` (bootstrapping `darwin-rebuild` from the flake on first run)
+4. Run `sudo -H darwin-rebuild switch` (bootstrapping `darwin-rebuild` from the flake on first run)
 5. Apply managed dotfiles to `$HOME`
 
 ## Maintenance

@@ -40,7 +40,7 @@ No remaining delta. All macOS preferences are implemented.
 ## Verification
 
 ```bash
-sudo darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
+sudo -H darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop
 
 # Spot-check:
 defaults read com.apple.dock autohide                         # → 1

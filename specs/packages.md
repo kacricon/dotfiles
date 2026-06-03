@@ -19,7 +19,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; Ho
 - Taps: `caarlos0/tap`
 - Brews: `caarlos0/tap/timer`, `rtk` (not in nixpkgs)
 - Casks: claude-code, codex-app, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals
-Adding a package means editing `flake.nix` and running `darwin-rebuild switch`.
+Adding a package means editing `flake.nix` and running `make rebuild`.
 Refreshing package versions means updating the nixpkgs lock with `make update_nixpkgs`
 or running `make upgrade` to update nixpkgs and rebuild in one step.
 

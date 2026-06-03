@@ -93,8 +93,8 @@
         masApps = {};
       };
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+      # Determinate Nix owns the Nix installation, daemon, and nix.conf.
+      nix.enable = false;
 
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;

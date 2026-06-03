@@ -14,13 +14,13 @@ bootstrap:
 
 rebuild:
 	@if command -v darwin-rebuild >/dev/null 2>&1; then \
-	  sudo "$$(command -v darwin-rebuild)" switch --flake "$(NIX_FLAKE)"; \
+	  sudo -H "$$(command -v darwin-rebuild)" switch --flake "$(NIX_FLAKE)"; \
 	else \
-	  sudo "$$(command -v nix)" --extra-experimental-features 'nix-command flakes' run "$(DARWIN_REBUILD_PACKAGE)" -- switch --flake "$(NIX_FLAKE)"; \
+	  sudo -H "$$(command -v nix)" --extra-experimental-features 'nix-command flakes' run "$(DARWIN_REBUILD_PACKAGE)" -- switch --flake "$(NIX_FLAKE)"; \
 	fi
 
 update_nixpkgs:
-	nix flake update nixpkgs --flake $(NIX_DIR)
+	nix --extra-experimental-features 'nix-command flakes' flake update nixpkgs --flake $(NIX_DIR)
 
 upgrade: update_nixpkgs rebuild
 
