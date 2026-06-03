@@ -10,11 +10,21 @@ NIX_DIR="$DOTFILES_DIR/nix"
 NIX_FLAKE="$NIX_DIR#$NIX_CONFIG_NAME"
 DARWIN_REBUILD_PACKAGE="$NIX_DIR#darwin-rebuild"
 NIX_DAEMON_SH="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+NIX_INSTALLER=""
+HOMEBREW_INSTALLER=""
 
 info() { printf '\033[1;34m==> %s\033[0m\n' "$1"; }
 ok()   { printf '\033[1;32m==> %s\033[0m\n' "$1"; }
 warn() { printf '\033[1;33m==> %s\033[0m\n' "$1"; }
 die()  { printf '\033[1;31m==> %s\033[0m\n' "$1" >&2; exit 1; }
+
+cleanup() {
+  [ -n "$NIX_INSTALLER" ] && rm -f "$NIX_INSTALLER"
+  [ -n "$HOMEBREW_INSTALLER" ] && rm -f "$HOMEBREW_INSTALLER"
+  return 0
+}
+
+trap cleanup EXIT HUP INT TERM
 
 have() {
   command -v "$1" >/dev/null 2>&1
@@ -34,6 +44,16 @@ load_nix_profile() {
   if [ -r "$NIX_DAEMON_SH" ]; then
     # shellcheck disable=SC1090
     . "$NIX_DAEMON_SH"
+  fi
+}
+
+load_homebrew_path() {
+  if [ -x /opt/homebrew/bin/brew ]; then
+    PATH="/opt/homebrew/bin:$PATH"
+    export PATH
+  elif [ -x /usr/local/bin/brew ]; then
+    PATH="/usr/local/bin:$PATH"
+    export PATH
   fi
 }
 
@@ -81,11 +101,10 @@ ensure_nix() {
   require_command curl
 
   info "installing nix via determinate systems installer..."
-  installer="$(mktemp "${TMPDIR:-/tmp}/nix-installer.XXXXXX")"
-  trap 'rm -f "$installer"' EXIT HUP INT TERM
+  NIX_INSTALLER="$(mktemp "${TMPDIR:-/tmp}/nix-installer.XXXXXX")"
 
-  curl --proto '=https' --tlsv1.2 -fsSL -o "$installer" https://install.determinate.systems/nix
-  sh "$installer" install --no-confirm
+  curl --proto '=https' --tlsv1.2 -fsSL -o "$NIX_INSTALLER" https://install.determinate.systems/nix
+  sh "$NIX_INSTALLER" install --no-confirm
 
   load_nix_profile
   if ! have nix; then
@@ -93,6 +112,35 @@ ensure_nix() {
   fi
 
   ok "nix installed"
+}
+
+ensure_homebrew() {
+  info "checking homebrew..."
+  load_homebrew_path
+
+  if have brew; then
+    ok "homebrew already installed"
+    return
+  fi
+
+  require_command curl
+
+  if [ ! -x /bin/bash ]; then
+    die "/bin/bash is required to install homebrew"
+  fi
+
+  info "installing homebrew..."
+  HOMEBREW_INSTALLER="$(mktemp "${TMPDIR:-/tmp}/homebrew-installer.XXXXXX")"
+
+  curl --proto '=https' --tlsv1.2 -fsSL -o "$HOMEBREW_INSTALLER" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  NONINTERACTIVE=1 /bin/bash "$HOMEBREW_INSTALLER"
+
+  load_homebrew_path
+  if ! have brew; then
+    die "homebrew installed, but brew is not available on PATH; open a new shell and rerun setup.sh"
+  fi
+
+  ok "homebrew installed"
 }
 
 ensure_dotfiles_repo() {
@@ -150,6 +198,7 @@ main() {
   check_host
   ensure_xcode_clt
   ensure_nix
+  ensure_homebrew
   ensure_dotfiles_repo
   run_darwin_switch
   apply_dotfiles

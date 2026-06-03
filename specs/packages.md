@@ -2,7 +2,7 @@
 
 ## Overview
 
-All packages are managed declaratively. Nix-darwin owns the full package set; Homebrew is used only where Nix has no equivalent (GUI casks, Mac App Store apps via `mas`, and taps not in nixpkgs).
+All packages are managed declaratively. Nix-darwin owns the full package set; setup.sh installs Homebrew itself, and Homebrew is used only where Nix has no equivalent (GUI casks, Mac App Store apps via `mas`, and taps not in nixpkgs).
 
 ## Current State
 

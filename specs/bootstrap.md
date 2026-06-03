@@ -10,12 +10,13 @@ The bootstrap spec defines how a fresh Mac goes from zero to a fully configured 
 
 1. Install Xcode Command Line Tools (skips if present)
 2. Install Nix via Determinate Systems installer (skips if present)
-3. Clone repo to `~/projects/dotfiles` from the public HTTPS URL (fetches and fast-forwards if exists, clones if not; git terminal prompts are disabled)
-4. Run `sudo -H darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop`, falling back to `sudo -H nix run ~/projects/dotfiles/nix#darwin-rebuild` for the first switch before `darwin-rebuild` is installed
-5. Apply dotfiles via `make apply_dotfiles` (backup + sync — includes `.zshrc`, `.config/nvim`, `.config/kitty`, `.config/yazi`)
-6. Print post-bootstrap manual checklist (git identity, Bitwarden extension, default browser)
+3. Install Homebrew (skips if present)
+4. Clone repo to `~/projects/dotfiles` from the public HTTPS URL (fetches and fast-forwards if exists, clones if not; git terminal prompts are disabled)
+5. Run `sudo -H darwin-rebuild switch --flake ~/projects/dotfiles/nix#laptop`, falling back to `sudo -H nix run ~/projects/dotfiles/nix#darwin-rebuild` for the first switch before `darwin-rebuild` is installed
+6. Apply dotfiles via `make apply_dotfiles` (backup + sync — includes `.zshrc`, `.config/nvim`, `.config/kitty`, `.config/yazi`)
+7. Print post-bootstrap manual checklist (git identity, Bitwarden extension, default browser)
 
-Also available: `make all` (steps 4+5), `make bootstrap` (runs `setup.sh`).
+Also available: `make all` (steps 5+6), `make bootstrap` (runs `setup.sh`).
 
 **Files:** `setup.sh`, `Makefile`, `nix/flake.nix`
 
@@ -32,6 +33,7 @@ curl -fsSL https://raw.githubusercontent.com/kacricon/dotfiles/master/setup.sh |
 ## Design Decisions
 
 - **Nix over Makefile**: nix-darwin rebuild replaces `make install_packages`. The Makefile remains for `apply_dotfiles` and `configure_macos` until those are absorbed into nix-darwin or home-manager.
+- **Homebrew bootstrap**: setup.sh installs Homebrew with the official installer before nix-darwin activation. nix-darwin manages Homebrew taps, brews, casks, and cleanup after Homebrew itself exists.
 - **No avoidable prompts**: setup.sh avoids package/auth prompts where possible. macOS may still show the Xcode Command Line Tools dialog, and sudo authentication is required for nix-darwin system activation.
 - **Public read-only repo access**: bootstrap uses `https://github.com/kacricon/dotfiles.git` with `GIT_TERMINAL_PROMPT=0`, so a stale or unavailable GitHub URL fails immediately instead of requesting username/password auth.
 - **Determinate owns Nix**: Nix is installed and managed by Determinate Nix. nix-darwin sets `nix.enable = false` so it does not take over the Nix installation, daemon, or `/etc/nix/nix.conf`.
