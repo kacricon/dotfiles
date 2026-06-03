@@ -36,6 +36,24 @@ require_command() {
   fi
 }
 
+require_sudo_access() {
+  require_command sudo
+
+  if sudo -n -v 2>/dev/null; then
+    return
+  fi
+
+  if [ -r /dev/tty ]; then
+    if sudo -v </dev/tty; then
+      return
+    fi
+
+    die "sudo access is required"
+  fi
+
+  die "sudo access is required, but no terminal is available for password entry"
+}
+
 run_git() {
   GIT_TERMINAL_PROMPT=0 git "$@"
 }
@@ -124,16 +142,13 @@ ensure_homebrew() {
   fi
 
   require_command curl
-  require_command sudo
 
   if [ ! -x /bin/bash ]; then
     die "/bin/bash is required to install homebrew"
   fi
 
   info "checking sudo access for homebrew installer..."
-  if ! sudo -v; then
-    die "sudo access is required to install homebrew"
-  fi
+  require_sudo_access
 
   info "installing homebrew..."
   HOMEBREW_INSTALLER="$(mktemp "${TMPDIR:-/tmp}/homebrew-installer.XXXXXX")"

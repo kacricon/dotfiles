@@ -33,7 +33,7 @@ curl -fsSL https://raw.githubusercontent.com/kacricon/dotfiles/master/setup.sh |
 ## Design Decisions
 
 - **Nix over Makefile**: nix-darwin rebuild replaces `make install_packages`. The Makefile remains for `apply_dotfiles` and `configure_macos` until those are absorbed into nix-darwin or home-manager.
-- **Homebrew bootstrap**: setup.sh installs Homebrew with the official installer before nix-darwin activation. The installer runs as the normal user after `sudo -v`, because Homebrew rejects root execution but needs sudo access for privileged setup work. nix-darwin manages Homebrew taps, brews, casks, and cleanup after Homebrew itself exists.
+- **Homebrew bootstrap**: setup.sh installs Homebrew with the official installer before nix-darwin activation. The installer runs as the normal user after sudo is validated through `/dev/tty`, because Homebrew rejects root execution but needs sudo access for privileged setup work. nix-darwin manages Homebrew taps, brews, casks, and cleanup after Homebrew itself exists.
 - **No avoidable prompts**: setup.sh avoids package/auth prompts where possible. macOS may still show the Xcode Command Line Tools dialog, and sudo authentication is required for nix-darwin system activation.
 - **Public read-only repo access**: bootstrap uses `https://github.com/kacricon/dotfiles.git` with `GIT_TERMINAL_PROMPT=0`, so a stale or unavailable GitHub URL fails immediately instead of requesting username/password auth.
 - **Determinate owns Nix**: Nix is installed and managed by Determinate Nix. nix-darwin sets `nix.enable = false` so it does not take over the Nix installation, daemon, or `/etc/nix/nix.conf`.
