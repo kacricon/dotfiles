@@ -16,7 +16,7 @@ rebuild:
 	@if command -v darwin-rebuild >/dev/null 2>&1; then \
 	  sudo "$$(command -v darwin-rebuild)" switch --flake "$(NIX_FLAKE)"; \
 	else \
-	  nix --extra-experimental-features 'nix-command flakes' run "$(DARWIN_REBUILD_PACKAGE)" -- switch --flake "$(NIX_FLAKE)"; \
+	  sudo "$$(command -v nix)" --extra-experimental-features 'nix-command flakes' run "$(DARWIN_REBUILD_PACKAGE)" -- switch --flake "$(NIX_FLAKE)"; \
 	fi
 
 update_nixpkgs:

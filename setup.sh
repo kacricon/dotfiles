@@ -132,7 +132,8 @@ run_darwin_switch() {
     sudo "$darwin_rebuild" switch --flake "$NIX_FLAKE"
   else
     info "darwin-rebuild is not installed yet; bootstrapping it from the pinned flake..."
-    nix --extra-experimental-features 'nix-command flakes' run "$DARWIN_REBUILD_PACKAGE" -- switch --flake "$NIX_FLAKE"
+    nix_bin="$(command -v nix)"
+    sudo "$nix_bin" --extra-experimental-features 'nix-command flakes' run "$DARWIN_REBUILD_PACKAGE" -- switch --flake "$NIX_FLAKE"
   fi
   ok "darwin-rebuild complete"
 }
