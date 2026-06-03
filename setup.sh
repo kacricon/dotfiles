@@ -124,9 +124,15 @@ ensure_homebrew() {
   fi
 
   require_command curl
+  require_command sudo
 
   if [ ! -x /bin/bash ]; then
     die "/bin/bash is required to install homebrew"
+  fi
+
+  info "checking sudo access for homebrew installer..."
+  if ! sudo -v; then
+    die "sudo access is required to install homebrew"
   fi
 
   info "installing homebrew..."
