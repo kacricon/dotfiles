@@ -147,6 +147,10 @@ ensure_homebrew() {
     die "/bin/bash is required to install homebrew"
   fi
 
+  if [ ! -r /dev/tty ]; then
+    die "a terminal is required to install homebrew"
+  fi
+
   info "checking sudo access for homebrew installer..."
   require_sudo_access
 
@@ -154,7 +158,7 @@ ensure_homebrew() {
   HOMEBREW_INSTALLER="$(mktemp "${TMPDIR:-/tmp}/homebrew-installer.XXXXXX")"
 
   curl --proto '=https' --tlsv1.2 -fsSL -o "$HOMEBREW_INSTALLER" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-  NONINTERACTIVE=1 /bin/bash "$HOMEBREW_INSTALLER"
+  INTERACTIVE=1 /bin/bash "$HOMEBREW_INSTALLER" </dev/tty
 
   load_homebrew_path
   if ! have brew; then
