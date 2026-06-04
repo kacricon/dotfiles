@@ -10,7 +10,7 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, hermes-agent }:
   let
-    configuration = { pkgs, ... }: {
+    configuration = { lib, pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
@@ -43,9 +43,18 @@
           pkgs.nodejs
           pkgs.python3
 
+          # GUI apps available in nixpkgs
+          pkgs.daisydisk
+
           # external flakes
           hermes-agent.packages.aarch64-darwin.default
         ];
+
+      # Ensure Homebrew commands are available in new shells on Apple Silicon.
+      environment.systemPath = [
+        "/opt/homebrew/bin"
+        "/opt/homebrew/sbin"
+      ];
 
       # Fonts
       fonts.packages = [
@@ -59,6 +68,7 @@
           cleanup = "zap";  # Uninstall packages not declared here
           autoUpdate = true;
           upgrade = true;
+          extraFlags = ["--force-cleanup"];
         };
 
         taps = [
@@ -76,15 +86,12 @@
           "codex-app"
           "discord"
           "fantastical"
-          "figma"
           "google-chrome"
           "helium-browser"
           "kitty"
-          "notion"
           "obsidian"
           "qobuz"
           "rectangle"
-          "roon"
           "spotify"
           "stremio"
           "vitals"
@@ -168,6 +175,11 @@
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
+
+      # Allow only explicitly approved unfree nixpkgs packages.
+      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+        "daisydisk"
+      ];
     };
   in
   {

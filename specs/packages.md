@@ -7,9 +7,11 @@ All packages are managed declaratively. Nix-darwin owns the full package set; se
 ## Current State
 
 `nix/flake.nix` is the single source of truth for all packages. The legacy `Brewfile` has been deleted.
+`nix/flake.nix` also adds `/opt/homebrew/bin` and `/opt/homebrew/sbin` to the nix-darwin system PATH so Homebrew-managed commands are available in new shells.
 
 **Nix-darwin** (`nix/flake.nix`) manages:
 - CLI tools: universal-ctags, neovim, tree-sitter, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, codex, zoxide, bun, nodejs, python3
+- GUI apps available in nixpkgs: daisydisk
 - Yazi + deps: yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf
 - External flakes: hermes-agent (from `github:NousResearch/hermes-agent`)
 - Fonts: NerdFontsSymbolsOnly
@@ -18,7 +20,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; se
 **Homebrew** (via nix-darwin `homebrew` block):
 - Taps: `caarlos0/tap`
 - Brews: `caarlos0/tap/timer`, `rtk` (not in nixpkgs)
-- Casks: claude-code, codex-app, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals
+- Casks: claude-code, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
 Adding a package means editing `flake.nix` and running `make rebuild`.
 Refreshing package versions means updating the nixpkgs lock with `make update_nixpkgs`
 or running `make upgrade` to update nixpkgs and rebuild in one step.
@@ -31,8 +33,8 @@ No remaining delta — current state matches desired state.
 
 ### Package inventory
 
-**Nix system packages** (CLI):
-universal-ctags, neovim, tree-sitter, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, codex, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf, bun, nodejs, python3
+**Nix system packages**:
+universal-ctags, neovim, tree-sitter, ripgrep, git, git-lfs, tree, tlrc, exercism, terminal-notifier, codex, zoxide, yazi, ffmpegthumbnailer, unar, jq, poppler_utils, fd, fzf, bun, nodejs, python3, daisydisk
 
 **External flake packages:**
 hermes-agent (via `github:NousResearch/hermes-agent`)
@@ -41,7 +43,7 @@ hermes-agent (via `github:NousResearch/hermes-agent`)
 caarlos0/tap/timer, rtk
 
 **Homebrew casks** (GUI apps):
-claude-code, codex-app, discord, fantastical, figma, google-chrome, helium-browser, kitty, notion, obsidian, qobuz, rectangle, roon, spotify, stremio, vitals
+claude-code, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
 
 **Fonts:**
 NerdFontsSymbolsOnly (via nixpkgs)
@@ -49,6 +51,7 @@ NerdFontsSymbolsOnly (via nixpkgs)
 ## Design Decisions
 
 - **Nix-first**: every CLI tool goes into `environment.systemPackages` unless it genuinely doesn't exist in nixpkgs.
+- **Narrow unfree allowlist**: unfree nixpkgs packages are allowed by package name only when explicitly declared; currently this allows `daisydisk`.
 - **Homebrew cleanup = "zap"**: nix-darwin removes casks/brews not declared in the flake, keeping the system clean.
 - **Codex split**: `pkgs.codex` provides the terminal CLI; the desktop app is managed as the `codex-app` Homebrew cask.
 - **Pinned nixpkgs input**: `flake.lock` pins `nixpkgs-unstable` for reproducible rebuilds. Run `make update_nixpkgs` when package freshness is desired.
@@ -74,6 +77,7 @@ make upgrade
 which nvim && which tree-sitter && which rg && which yazi && which tree && which bun && which codex
 
 # Homebrew-managed apps:
+which brew | grep -q /opt/homebrew/bin/brew
 brew list --cask | grep -q kitty
 brew list --cask | grep -q codex-app
 brew list | grep -q timer

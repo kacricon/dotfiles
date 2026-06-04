@@ -9,6 +9,7 @@ Zsh is the login shell, configured for minimalism: vi-mode keybindings, a two-ch
 `.zshrc` contains:
 
 - **Locale**: `LC_ALL=en_US.UTF-8`
+- **PATH**: prepends `~/.bun/bin`; nix-darwin adds Nix profile paths plus `/opt/homebrew/bin` and `/opt/homebrew/sbin` to the system PATH
 - **History**: `HISTFILE=~/.zsh_history`, `HISTSIZE=10000`, `SAVEHIST=10000`, `HIST_IGNORE_DUPS`, `SHARE_HISTORY`
 - **Completions**: `autoload -Uz compinit && compinit`
 - **Prompt**: `; ` (semicolon + space)
@@ -52,6 +53,7 @@ Everything stays as-is. No oh-my-zsh, no starship, no plugin managers.
 # Source and test:
 source ~/.zshrc
 echo $PROMPT          # → "; "
+which brew            # → /opt/homebrew/bin/brew
 which nvim            # alias works
 work                  # timer starts (Ctrl-C to cancel)
 ```
