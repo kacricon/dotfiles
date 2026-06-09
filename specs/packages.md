@@ -20,7 +20,7 @@ All packages are managed declaratively. Nix-darwin owns the full package set; se
 **Homebrew** (via nix-darwin `homebrew` block):
 - Taps: `caarlos0/tap`
 - Brews: `caarlos0/tap/timer`, `rtk` (not in nixpkgs)
-- Casks: claude-code, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
+- Casks: claude-code@latest, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
 Adding a package means editing `flake.nix` and running `make rebuild`.
 Refreshing package versions means updating the nixpkgs lock with `make update_nixpkgs`
 or running `make upgrade` to update nixpkgs and rebuild in one step.
@@ -43,7 +43,7 @@ hermes-agent (via `github:NousResearch/hermes-agent`)
 caarlos0/tap/timer, rtk
 
 **Homebrew casks** (GUI apps):
-claude-code, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
+claude-code@latest, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
 
 **Fonts:**
 NerdFontsSymbolsOnly (via nixpkgs)
@@ -56,6 +56,7 @@ NerdFontsSymbolsOnly (via nixpkgs)
 - **Codex split**: `pkgs.codex` provides the terminal CLI; the desktop app is managed as the `codex-app` Homebrew cask.
 - **Pinned nixpkgs input**: `flake.lock` pins `nixpkgs-unstable` for reproducible rebuilds. Run `make update_nixpkgs` when package freshness is desired.
 - **timer stays in Homebrew**: `caarlos0/tap/timer` is a custom tap with no nixpkgs equivalent.
+- **Claude Code via `claude-code@latest` cask**: Claude Code releases very frequently. The plain `claude-code` cask is a slow-moving versioned pin that lags releases, and `nixpkgs#claude-code` trails further behind (unstable PR + Hydra cycle, only bumped on `make update_nixpkgs`). The `@latest` cask tracks the newest release, so it is preferred over both the versioned cask and a Nix package here.
 
 ## Dependencies
 

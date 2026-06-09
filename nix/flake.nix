@@ -82,7 +82,7 @@
 
         casks = [
           # GUI applications
-          "claude-code"
+          "claude-code@latest"  # tracks latest release; plain "claude-code" cask lags
           "codex-app"
           "discord"
           "fantastical"
