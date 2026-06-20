@@ -27,6 +27,8 @@ or running `make upgrade` to update nixpkgs and rebuild in one step.
 
 **Files:** `nix/flake.nix`
 
+`git-lfs` is installed as a package and initialized declaratively: the `system.activationScripts.extraActivation` block runs `git-lfs install --skip-repo` (as user `jrc`, with `HOME=/Users/jrc` and `pkgs.git` on PATH — the activation script's root `HOME` would otherwise write to `/var/root/.gitconfig`) on every rebuild, registering the LFS clean/smudge/filter entries in `~/.gitconfig`. This is idempotent.
+
 ## Desired State
 
 No remaining delta — current state matches desired state.

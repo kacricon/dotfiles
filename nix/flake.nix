@@ -161,6 +161,9 @@
       # Ensure ~/Screenshots directory exists
       system.activationScripts.extraActivation.text = ''
         sudo -u jrc mkdir -p /Users/jrc/Screenshots
+
+        # Register git-lfs filters in the user's global git config (idempotent)
+        sudo -u jrc env HOME=/Users/jrc PATH="${pkgs.git}/bin:$PATH" ${pkgs.git-lfs}/bin/git-lfs install --skip-repo
       '';
 
       # Primary user for user-scoped defaults and homebrew
