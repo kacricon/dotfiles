@@ -200,6 +200,7 @@ ensure_dotfiles_repo() {
 
 run_darwin_switch() {
   info "running darwin-rebuild switch..."
+  info "macOS may ask for App Management permission so Homebrew casks can be updated"
   if have darwin-rebuild; then
     darwin_rebuild="$(command -v darwin-rebuild)"
     sudo -H "$darwin_rebuild" switch --flake "$NIX_FLAKE"

@@ -1,4 +1,4 @@
-.PHONY: all bootstrap rebuild update_nixpkgs upgrade apply_dotfiles restore_backup ralph
+.PHONY: all bootstrap rebuild update_nix_inputs update_nixpkgs upgrade apply_dotfiles restore_backup ralph
 
 BACKUP_DIR := $(HOME)/dotfiles_backup
 DOTFILES := .zshrc
@@ -19,10 +19,12 @@ rebuild:
 	  sudo -H "$$(command -v nix)" --extra-experimental-features 'nix-command flakes' run "$(DARWIN_REBUILD_PACKAGE)" -- switch --flake "$(NIX_FLAKE)"; \
 	fi
 
-update_nixpkgs:
-	nix --extra-experimental-features 'nix-command flakes' flake update nixpkgs --flake $(NIX_DIR)
+update_nix_inputs:
+	nix --extra-experimental-features 'nix-command flakes' flake update nixpkgs nix-darwin --flake $(NIX_DIR)
 
-upgrade: update_nixpkgs rebuild
+update_nixpkgs: update_nix_inputs
+
+upgrade: update_nix_inputs rebuild
 
 apply_dotfiles:
 	@echo "Backing up current dotfiles..."

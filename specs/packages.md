@@ -18,12 +18,13 @@ All packages are managed declaratively. Nix-darwin owns the full package set; se
 - Homebrew integration (casks, brews, masApps) with `cleanup = "zap"`
 
 **Homebrew** (via nix-darwin `homebrew` block):
-- Taps: `caarlos0/tap`
-- Brews: `caarlos0/tap/timer`, `rtk` (not in nixpkgs)
-- Casks: claude-code@latest, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
+- Taps: none
+- Brews: `rtk` (not in nixpkgs)
+- Casks: claude-code@latest, codex-app, discord, fantastical, google-chrome, helium-browser, iina, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
 Adding a package means editing `flake.nix` and running `make rebuild`.
-Refreshing package versions means updating the nixpkgs lock with `make update_nixpkgs`
-or running `make upgrade` to update nixpkgs and rebuild in one step.
+Refreshing package versions means updating the compatible nixpkgs/nix-darwin lock pair with `make update_nix_inputs`
+or running `make upgrade` to update both inputs and rebuild in one step. `make update_nixpkgs` remains as a backwards-compatible alias.
+Updating Homebrew casks may require granting App Management permission to the terminal emulator that runs `make rebuild` or `setup.sh`.
 
 **Files:** `nix/flake.nix`
 
@@ -42,10 +43,10 @@ universal-ctags, neovim, tree-sitter, ripgrep, git, git-lfs, tree, tlrc, exercis
 hermes-agent (via `github:NousResearch/hermes-agent`)
 
 **Homebrew brews** (no Nix equivalent):
-caarlos0/tap/timer, rtk
+rtk
 
 **Homebrew casks** (GUI apps):
-claude-code@latest, codex-app, discord, fantastical, google-chrome, helium-browser, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
+claude-code@latest, codex-app, discord, fantastical, google-chrome, helium-browser, iina, kitty, obsidian, qobuz, rectangle, spotify, stremio, vitals
 
 **Fonts:**
 NerdFontsSymbolsOnly (via nixpkgs)
@@ -55,10 +56,10 @@ NerdFontsSymbolsOnly (via nixpkgs)
 - **Nix-first**: every CLI tool goes into `environment.systemPackages` unless it genuinely doesn't exist in nixpkgs.
 - **Narrow unfree allowlist**: unfree nixpkgs packages are allowed by package name only when explicitly declared; currently this allows `daisydisk`.
 - **Homebrew cleanup = "zap"**: nix-darwin removes casks/brews not declared in the flake, keeping the system clean.
+- **App Management permission**: Homebrew cask upgrades can update `.app` bundles in `/Applications`; macOS may block this until the invoking terminal emulator is allowed under System Settings > Privacy & Security > App Management.
 - **Codex split**: `pkgs.codex` provides the terminal CLI; the desktop app is managed as the `codex-app` Homebrew cask.
-- **Pinned nixpkgs input**: `flake.lock` pins `nixpkgs-unstable` for reproducible rebuilds. Run `make update_nixpkgs` when package freshness is desired.
-- **timer stays in Homebrew**: `caarlos0/tap/timer` is a custom tap with no nixpkgs equivalent.
-- **Claude Code via `claude-code@latest` cask**: Claude Code releases very frequently. The plain `claude-code` cask is a slow-moving versioned pin that lags releases, and `nixpkgs#claude-code` trails further behind (unstable PR + Hydra cycle, only bumped on `make update_nixpkgs`). The `@latest` cask tracks the newest release, so it is preferred over both the versioned cask and a Nix package here.
+- **Pinned Nix inputs**: `flake.lock` pins `nixpkgs-unstable` and nix-darwin for reproducible rebuilds. Run `make update_nix_inputs` when package freshness is desired; nix-darwin follows nixpkgs and should be updated with it to avoid build-tool mismatches.
+- **Claude Code via `claude-code@latest` cask**: Claude Code releases very frequently. The plain `claude-code` cask is a slow-moving versioned pin that lags releases, and `nixpkgs#claude-code` trails further behind (unstable PR + Hydra cycle, only bumped when the flake inputs are updated). The `@latest` cask tracks the newest release, so it is preferred over both the versioned cask and a Nix package here.
 
 ## Dependencies
 
@@ -73,7 +74,11 @@ NerdFontsSymbolsOnly (via nixpkgs)
 ```bash
 make rebuild
 
-# Refresh nixpkgs before rebuilding:
+# If macOS blocks Homebrew cask updates:
+# System Settings > Privacy & Security > App Management
+# Allow the terminal emulator used to run make, then rerun make rebuild
+
+# Refresh nixpkgs/nix-darwin before rebuilding:
 make upgrade
 
 # CLI tools from Nix:
@@ -83,5 +88,4 @@ which nvim && which tree-sitter && which rg && which yazi && which tree && which
 which brew | grep -q /opt/homebrew/bin/brew
 brew list --cask | grep -q kitty
 brew list --cask | grep -q codex-app
-brew list | grep -q timer
 ```

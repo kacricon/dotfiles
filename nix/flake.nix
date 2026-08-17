@@ -71,12 +71,10 @@
           extraFlags = ["--force-cleanup"];
         };
 
-        taps = [
-          "caarlos0/tap"
-        ];
+        # taps = [
+        # ];
 
         brews = [
-          "caarlos0/tap/timer"  # Not available in nixpkgs
           "rtk"  # Not available in nixpkgs
         ];
 
@@ -88,6 +86,7 @@
           "fantastical"
           "google-chrome"
           "helium-browser"
+          "iina"
           "kitty"
           "obsidian"
           "qobuz"

@@ -21,6 +21,7 @@ This is idempotent — re-running it applies the latest configuration without er
 
 ```bash
 make rebuild         # rebuild from the pinned flake.lock
-make update_nixpkgs  # refresh the nixpkgs pin
-make upgrade         # update nixpkgs, then rebuild
+make update_nix_inputs  # refresh nixpkgs and nix-darwin pins
+make update_nixpkgs     # backwards-compatible alias for update_nix_inputs
+make upgrade            # update nixpkgs/nix-darwin, then rebuild
 ```

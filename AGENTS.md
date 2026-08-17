@@ -16,8 +16,9 @@ All design intent lives in `specs/`. Start there: [specs/README.md](specs/README
 sh setup.sh               # full bootstrap (fresh Mac or idempotent re-run)
 make all                  # rebuild nix-darwin + sync managed dotfiles to $HOME
 make rebuild              # nix-darwin rebuild only
-make update_nixpkgs       # update the pinned nixpkgs flake input
-make upgrade              # update nixpkgs + rebuild nix-darwin
+make update_nix_inputs    # update the pinned nixpkgs + nix-darwin flake inputs
+make update_nixpkgs       # backwards-compatible alias for update_nix_inputs
+make upgrade              # update nixpkgs/nix-darwin + rebuild nix-darwin
 make apply_dotfiles       # sync .zshrc and managed .config dirs to $HOME (with backup)
 ```
 
